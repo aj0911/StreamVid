@@ -1,1 +1,41 @@
 @import url(https://fonts.googleapis.com/css?family=Advent+Pro:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+
+:root{
+    --bgColor:#0B1320;
+    --textColor:#FEF5E9;
+    --secColor:#6C52EE;
+    --secColorDark:#4D5C7C;
+    --secColorLight:#BABFC1;
+    --transition: all .4s;
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    background-color: var(--bgColor);
+}
+
+*{
+    font-family: 'Advent Pro';
+    user-select: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+/* For Tablets */
+@media screen and (max-width:999px) {
+    
+}
+/* For Mobiles */
+@media screen and (max-width:599px) {
+    
+}
