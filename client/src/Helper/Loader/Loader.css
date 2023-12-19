@@ -1,0 +1,32 @@
+.loader{
+    width: 100%;
+    height: calc(100vh - 90px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader .box{
+    border-bottom:2px solid var(--secColor);
+    border-radius: 50%;
+    animation: rotate 1s linear infinite;
+}
+
+
+
+/* For Tablets */
+@media screen and (max-width:999px) {
+    
+}
+/* For Mobiles */
+@media screen and (max-width:599px) {
+    .loader{
+       height: calc(100vh - 70px); 
+    }
+}
+
+@keyframes rotate {
+    100%{
+        transform: rotate(360deg);
+    }
+}

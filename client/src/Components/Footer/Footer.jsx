@@ -3,7 +3,9 @@ import './Footer.css'
 
 const Footer = () => {
   return (
-    <div>Footer</div>
+    <footer>
+      <p>Copyright &copy; {(new Date(Date.now())).getFullYear()} StreamVid AJ. All rights reserved.</p>
+    </footer>
   )
 }
 

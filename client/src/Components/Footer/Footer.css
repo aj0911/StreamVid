@@ -1,0 +1,25 @@
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--secColorLight);
+}
+
+footer p{
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--secColorDark);
+}
+
+/* For Tablets */
+@media screen and (max-width:999px) {
+    footer{
+        display: none;
+    }
+}
+/* For Mobiles */
+@media screen and (max-width:599px) {
+    
+}

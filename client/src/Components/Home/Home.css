@@ -1,0 +1,184 @@
+.home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 2rem;
+}
+
+.home .hero{
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 90px);
+    .movies{
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        height: 100%;
+    }
+}
+
+.home .hero .movieBanner{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--bgColor);
+    z-index: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+}
+.home .hero .movieBanner::after{
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    opacity: .6;
+}
+.home .hero .movieBanner:nth-child(2){
+    transition: .5s;
+}
+.home .hero .movieBanner:nth-child(1){
+    left: -100%;
+}
+.home .hero .movieBanner:nth-child(3){
+    left: 200%;
+}
+.home .hero .movieBanner:nth-child(4){
+    left: 300%;
+}
+.home .hero .movieBanner:nth-child(5){
+    left: 400%;
+}
+
+.home .hero .movieBanner:nth-child(2) .content{
+    width: 60%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 20px 5%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    z-index: 1;
+    gap: 1rem;
+    animation: animateText 1s ease-in;
+    .genere{
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--secColor);
+    }
+    > h3{
+        font-size: 4rem;
+        font-weight: 800;
+        color: var(--textColor);
+    }
+    .rating{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+        .icon{
+            color: var(--secColor);
+            font-size: 1.1rem;
+        }
+        .dot{
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: var(--secColor);
+        }
+        > h3{
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--textColor);
+        }
+    }
+    >p{
+        font-size: 1.3rem;
+        font-weight: 500;
+        color: var(--textColor);
+    }
+    .btns{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        margin-top: 1rem;
+        .play{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem; 
+            border: none;
+            padding: 10px 20px;
+            background: linear-gradient(45deg,var(--secColor) 70% ,var(--secColorDark));
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--textColor);
+            font-size: 1.3rem;
+            >h3{
+                font-weight: 700;
+            }
+        }
+        .watchLater{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem; 
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--textColor);
+            background-color: transparent;
+            font-size: 1.3rem;
+            >h3{
+                font-weight: 700;
+            }
+        }
+    }
+}
+.home .hero .movieBanner .content .btns .play:hover{
+    transform: scale(1.05);
+    box-shadow: 10px 10px 50px rgba(108,82,238,0.2);
+}
+.home .hero .movieBanner .content .btns .watchLater:hover{
+    color: var(--secColor);
+    transform: scale(1.05);
+}
+
+.home .hero .sliderNext{
+    position: absolute;
+    right: 10px;
+    top: 0;
+    height: 100%;
+    z-index: 1;
+    color: var(--secColor);
+    font-size: 1.5rem;
+    animation: animateText 1s ease;
+    cursor: pointer;
+}
+.home .hero .sliderPrev{
+    position: absolute;
+    left: 10px;
+    top: 0;
+    height: 100%;
+    z-index: 1;
+    color: var(--secColor);
+    font-size: 1.5rem;
+    animation: animateText 1s ease;
+    cursor: pointer;
+}

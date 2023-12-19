@@ -31,11 +31,30 @@ body{
     text-decoration: none;
 }
 
+
 /* For Tablets */
 @media screen and (max-width:999px) {
+    .App{
+        padding-bottom: calc(40px + 3.3rem);
+    }
     
 }
 /* For Mobiles */
 @media screen and (max-width:599px) {
-    
+    .App{
+        padding-bottom: calc(40px + 2.1rem);
+    }
+}
+
+@keyframes animateText {
+    0%{
+        filter: blur(33px);
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    100%{
+        filter: blur(0px);
+        transform: translateY(0);
+        opacity: 1;
+    }
 }

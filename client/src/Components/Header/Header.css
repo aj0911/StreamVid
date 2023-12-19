@@ -144,6 +144,7 @@ header .right button{
 }
 header .right button:hover{
     transform: scale(1.05);
+    box-shadow: 10px 10px 50px rgba(108,82,238,0.2);
 }
 
 /* Responsive */
