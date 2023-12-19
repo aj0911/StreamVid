@@ -9,12 +9,14 @@ const Home = () => {
     // States
     const [trendingMovies,setTrendingMovies] = useState([]);
     const items = useRef();
+    const [loading,setLoading] = useState(false);
 
     // Functions
     const loadTrendingMovies = ()=>{
+        setLoading(true);
         api.get(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((data)=>{
             data.data.results.forEach((element)=>{
-                api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=images`).then((res)=>{
+                api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
                     setTrendingMovies(prev=>[...prev,res.data]);
                     console.log(res.data);
                 }).catch((err)=>{
@@ -24,8 +26,14 @@ const Home = () => {
         }).catch((err)=>{
             toast.warn(err.message)
         }).finally(()=>{
-
+            setLoading(false);
         })
+    }
+    const slideNext = ()=>{
+        items.current.appendChild(items.current.children[0]);
+    }
+    const slidePrev = ()=>{
+        items.current.prepend(items.current.children[items.current.children.length-1]);
     }
 
     // Rendering
@@ -38,17 +46,17 @@ const Home = () => {
         <div className="hero">
             <div className="movies" ref={items}>
                 {
-                    (trendingMovies.length<=0)?
+                    (trendingMovies.length<=0 || loading)?
                     <Loader size={100}/>
                     :
-                    trendingMovies.slice(0,5).map((movie,index)=>{
+                    trendingMovies.map((movie,index)=>{
                         let genres = '';
                         movie.genres.forEach((e)=>{
                             genres+=e.name +', ';
                         })
                         return(
-                        <div key={index} className='movieBanner' style={{backgroundImage:`url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`}}>
-                            <div className="content">
+                        <div key={index} className='movieBanner' style={{backgroundImage:`url("https://image.tmdb.org/t/p/original/${(window.innerWidth>999)?movie.backdrop_path:movie.poster_path}")`}}>
+                            <div className="content" onClick={()=>console.log('drag')}>
                                 <p className='genere'>{genres.slice(0,genres.length-2)}</p>
                                 <h3>{movie.original_title}</h3>
                                 <div className="rating">
@@ -75,8 +83,8 @@ const Home = () => {
                     )})
                 }
             </div>
-            <FaArrowLeft className='sliderPrev' onClick={()=>items.current.prepend(items.current.children[items.current.children.length-1])}/>
-            <FaArrowRight className='sliderNext' onClick={()=>items.current.appendChild(items.current.children[0])}/>
+            <FaArrowLeft className='sliderPrev' onClick={slidePrev}/>
+            <FaArrowRight className='sliderNext' onClick={slideNext}/>
         </div>
     </div>
   )
