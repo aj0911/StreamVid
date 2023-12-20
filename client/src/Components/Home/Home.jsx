@@ -120,7 +120,11 @@ const Home = () => {
                 {
                     (trendingMovies.length>0)?
                     trendingMovies.map((movies,index)=>(
-                        <img className='movie' key={index} src={`https://image.tmdb.org/t/p/w500/${movies.poster_path}`} alt="" />
+                        <div key={index} className="movie">
+                            <img src={`https://image.tmdb.org/t/p/w500/${movies.poster_path}`} alt="" />
+                            <FaRegPlayCircle className='icon'/>
+                            <button>Add to My List</button>
+                        </div>
                     )):''
                 }
             </div>

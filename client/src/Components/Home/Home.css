@@ -244,20 +244,19 @@
 
 .home .TrendingMovies{
     width: 100%;
-    /* margin: 50px 0; */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 2rem;
+    gap: .5rem;
     .moviesList{
         display: flex;
         justify-content: flex-start;
         align-items: center;
         gap: 1rem;
         width: 100%;
-        padding: 10px 0 10px 5%;
-        overflow: scroll;
+        padding: 20px 0 20px 5%;
+        overflow-x: auto;
         :last-child{
             margin-right: 5%;
         }
@@ -272,10 +271,78 @@
     transition: var(--transition);
     cursor: pointer;
     position: relative;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 0;
+    button{
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        width: calc(100% - 40px);
+        padding: 5px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        background-color: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        color: var(--textColor);
+        border-radius: 5px;
+        transition: var(--transition);
+        display: none;
+        text-align: center;
+        cursor: pointer;
+    }
+    .icon{
+        position: absolute;
+        font-size: 3rem;
+        color: var(--textColor);
+        transition: var(--transition);
+        display: none;
+    }
+    img{
+        width: 100%;
+    }
 }
-
+.home .TrendingMovies .moviesList .movie .icon:hover{
+    font-size: calc(1.05 * 3rem);
+    color: var(--secColor);
+}
+.home .TrendingMovies .moviesList .movie button:hover{
+    transform: scale(1.05);
+    background-color: var(--secColor);
+}
 .home .TrendingMovies .moviesList .movie:hover{
     transform: scale(1.05);
+    button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: animateTextReverse .4s ease-in forwards;
+        
+    }
+    .icon{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: animateText .4s ease-in forwards;
+    }
+}
+
+.home .TrendingMovies .moviesList .movie:hover::after{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background-color: black;
+    opacity: .5;
+    z-index: -1;
+    border-radius: 10px;
 }
 
 /* For Tablets */
@@ -290,6 +357,9 @@
         width: calc(calc(100% - 2rem) / 3);
         border-radius: 5px;
     }
+    .home .TrendingMovies .moviesList .movie:hover .icon,.home .TrendingMovies .moviesList .movie:hover button{
+        display: none;
+    }
     
 }
 /* For Mobiles */
@@ -301,6 +371,8 @@
     .home .TrendingMovies {
         gap: 0rem;
     }
+    
+
     .home .hero .movieBanner:nth-child(2) .content {
         gap: .5rem;
         .genere {
