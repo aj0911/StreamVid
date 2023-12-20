@@ -4,8 +4,8 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
-    gap: 2rem;
-    padding-bottom: 2rem;
+    gap: 3rem;
+    padding-bottom: 3rem;
 }
 
 .home .hero{
@@ -244,6 +244,38 @@
 
 .home .TrendingMovies{
     width: 100%;
+    /* margin: 50px 0; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+    .moviesList{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+        padding: 10px 0 10px 5%;
+        overflow: scroll;
+        :last-child{
+            margin-right: 5%;
+        }
+    }
+}
+
+.home .TrendingMovies .moviesList .movie{
+    width: calc(25% - .75rem);
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.4);
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+}
+
+.home .TrendingMovies .moviesList .movie:hover{
+    transform: scale(1.05);
 }
 
 /* For Tablets */
@@ -254,10 +286,21 @@
     .home .hero .sliderNext,.home .hero .sliderPrev{
         display: none;
     }
+    .home .TrendingMovies .moviesList .movie {
+        width: calc(calc(100% - 2rem) / 3);
+        border-radius: 5px;
+    }
     
 }
 /* For Mobiles */
 @media screen and (max-width:599px) {
+    .home{
+        gap: 2rem;
+        padding-bottom: 2rem;
+    }
+    .home .TrendingMovies {
+        gap: 0rem;
+    }
     .home .hero .movieBanner:nth-child(2) .content {
         gap: .5rem;
         .genere {

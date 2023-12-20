@@ -69,12 +69,13 @@ const Home = () => {
     },[touchEndX])
 
   return (
+    (loading)?<Loader size={100}/>:
     <div className="home">
         <div className="hero">
             <div className="movies" ref={items}>
                 {
-                    (trendingMovies.length<=0 || loading)?
-                    <Loader size={100}/>
+                    (trendingMovies.length<=0)?
+                    ''
                     :
                     trendingMovies.map((movie,index)=>{
                         let genres = '';
@@ -119,9 +120,7 @@ const Home = () => {
                 {
                     (trendingMovies.length>0)?
                     trendingMovies.map((movies,index)=>(
-                        <div key={index} className="movie">
-                            <img src={`https://image.tmdb.org/t/p/original/${movies.poster_path}`} alt="" />
-                        </div>
+                        <img className='movie' key={index} src={`https://image.tmdb.org/t/p/w500/${movies.poster_path}`} alt="" />
                     )):''
                 }
             </div>

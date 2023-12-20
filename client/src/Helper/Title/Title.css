@@ -12,7 +12,7 @@
     color: var(--textColor);
 }
 .title h5{
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--textColor);
     cursor: pointer;
@@ -26,9 +26,14 @@
 /* For Tablets */
 @media screen and (max-width:999px) {
     
-    
 }
 /* For Mobiles */
 @media screen and (max-width:599px) {
+    .title h3 {
+        font-size: 1.3rem;
+    }
+    .title h5 {
+        font-size: .9rem;
+    }
     
 }
