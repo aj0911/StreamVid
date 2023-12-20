@@ -91,7 +91,8 @@ header .right .search{
     align-items: center;
     padding: 5px;
     transition: var(--transition);
-    border-bottom: .1px solid var(--textColor);
+    border: .1px solid var(--textColor);
+    border-radius: 5px;
     .icon{
         color: var(--textColor);
         font-size: 1.1rem;
@@ -99,9 +100,12 @@ header .right .search{
 }
 header .right .search input{
     padding: 5px;
-    font-size: .9rem;
+    font-size: 1.1rem;
     border: none;
     background-color: transparent;
+    color: var(--textColor);
+}
+header .right .search input::placeholder{
     color: var(--textColor);
 }
 header .right .search:hover{
@@ -166,11 +170,13 @@ header .right button:hover{
     }
     header .right .search{
         border:none;
+        position: relative;
         .icon{
             font-size: 1.5rem;
         }
         input{
             display: none;
+
         }
     }
     header .left .links .link{

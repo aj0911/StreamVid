@@ -1,0 +1,34 @@
+.title{
+    width: 100%;
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title h3{
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--textColor);
+}
+.title h5{
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--textColor);
+    cursor: pointer;
+    transition: var(--transition);
+}
+.title h5:hover{
+    color: var(--secColor);
+    transform: scale(1.05);
+}
+
+/* For Tablets */
+@media screen and (max-width:999px) {
+    
+    
+}
+/* For Mobiles */
+@media screen and (max-width:599px) {
+    
+}
