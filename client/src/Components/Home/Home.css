@@ -5,7 +5,6 @@
     flex-direction: column;
     width: 100%;
     gap: 3rem;
-    padding-bottom: 3rem;
 }
 
 .home .hero{
@@ -387,6 +386,127 @@
 
     }
 }
+
+.home .upcomingMovies{
+    width: 100%;
+    padding: 0px 5%;
+    .upcomingList{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        overflow:auto;
+        scroll-snap-type: x mandatory;
+        gap: 1rem;
+        .upcomingMovie{
+            width: 100%;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            scroll-snap-align: start;
+            padding: 20px;
+            background-color: rgba(108,82,238,0.2);
+            border-radius: 10px;
+            box-shadow: 5px 5px 20px rgba(0,0,0,0.4);
+            gap: 1rem;
+            img{
+                width: 200px;
+                height: 300px;
+                border-radius: 10px;
+            }
+            .content{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                width: 30%;
+                h3{
+                    font-size: 2rem;
+                    font-weight: 800;
+                    color: var(--textColor);
+                    text-align: center;
+                }
+                h5{
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    color: var(--secColorLight);
+                }
+            }
+            p{
+                font-size: 1.5rem;
+                font-weight: 800;
+                color: var(--textColor);
+                text-transform: uppercase;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                width: 30%;
+                text-align: center;
+            }
+            button{
+                padding: 10px 20px;
+                font-size: 1.1rem;
+                font-weight: 800;
+                color: var(--bgColor);
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: var(--transition);
+                background-color: var(--textColor);
+            }
+            button:hover{
+                transform: scale(1.05);
+                box-shadow: 5px 5px 20px rgba(0,0,0,0.4);
+                background-color: var(--bgColor);
+                color: var(--textColor);
+            }
+        }
+    }
+}
+
+.home .persons{
+    width: 100%;
+    .personList{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+        padding: 20px 0 20px 5%;
+        overflow: scroll;
+        :last-child{
+            margin-right: 5%;
+        }
+        .person:hover{
+            transform: scale(1.05);
+        }
+        .person{
+            flex-shrink: 0;
+            width: calc(calc(100% - 4rem) / 5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            img{
+                width: 100%;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                border: 2px solid var(--secColor);
+            }
+            h3{
+                font-size: 1.3rem;
+                font-weight: 700;
+                color: var(--textColor);
+                text-align: center;
+            }
+        }
+    }
+}
+
 /* For Tablets */
 @media screen and (max-width:999px) {
     .home .TrendingMovies .moviesList .latest_movies{
@@ -396,6 +516,16 @@
         height: 400px;
         img{
             height: 400px;
+        }
+    }
+    .home .persons
+    .personList{
+        gap: .5rem;
+        .person {
+            width: calc(calc(100% - 1rem) * (2 / 5));
+            h3{
+                font-size: .9rem;
+            }
         }
     }
     .home .TrendingMovies .moviesList .latest_movies h3{
@@ -418,6 +548,19 @@
     .home .TrendingMovies .moviesList .movie:hover .icon,.home .TrendingMovies .moviesList .movie:hover button{
         display: none;
     }
+
+    .home .upcomingMovies .upcomingList .upcomingMovie{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        p{
+            width: 100%;
+        }
+        .content{
+            width: 100%;
+        }
+    }
     
     
 }
@@ -425,7 +568,6 @@
 @media screen and (max-width:599px) {
     .home{
         gap: 2rem;
-        padding-bottom: 2rem;
     }
     .home .TrendingMovies {
         gap: 0rem;
@@ -479,6 +621,27 @@
                 font-size: .9rem;
                 padding: 5px 10px;
             }
+        }
+    }
+    .home .upcomingMovies .upcomingList .upcomingMovie{
+        img{
+            width: 100%;
+        }
+        p{
+            font-size: 1.3rem;
+        }
+        .content{
+            h3 {
+                font-size: 1.5rem;
+            }
+            h5{
+                font-size: .9rem;
+            }
+        }
+        button {
+            padding: 5px 10px;
+            font-size: .9rem;
+            border-radius: 3px;
         }
     }
 }

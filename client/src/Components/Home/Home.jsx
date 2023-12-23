@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import {  FaArrowLeft, FaArrowRight, FaBookmark, FaRegPlayCircle, FaStar } from 'react-icons/fa'
 import Loader from '../../Helper/Loader/Loader'
 import Title from '../../Helper/Title/Title'
+import { getMonth } from '../../Helper/Helper'
 
 const Home = () => {
     // States
@@ -14,6 +15,8 @@ const Home = () => {
     const [top10Movies,setTop10Movies] = useState([]);
     const [trendingKdrama,setTrendingKdrama] = useState([]);
     const [trendingSeries,setTrendingSeries] = useState([]);
+    const [upcomingMovies,setUpcomingMovies] = useState([]);
+    const [persons,setPersons] = useState([]);
     const items = useRef();
     const [loading,setLoading] = useState(false);
     const [touchStartX,setTouchStartX] = useState({x:0,y:0});
@@ -25,8 +28,10 @@ const Home = () => {
         api.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((data)=>{
             data.data.results.forEach((element)=>{
                 api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
-                    setTrendingMovies(prev=>[...prev,res.data]);
-                    console.log(res.data);
+                    setTrendingMovies((prev)=>{
+                        if(res.data.poster_path===null)return [...prev];
+                        return [...prev,res.data];
+                    });
                 }).catch((err)=>{
                     toast.warn(err.message)
                 })
@@ -42,7 +47,10 @@ const Home = () => {
         api.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((data)=>{
             data.data.results.forEach((element)=>{
                 api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
-                    setNewMovies(prev=>[...prev,res.data]);
+                    setNewMovies((prev)=>{
+                        if(res.data.poster_path===null)return [...prev];
+                        return [...prev,res.data];
+                    });
                 }).catch((err)=>{
                     toast.warn(err.message)
                 })
@@ -58,7 +66,10 @@ const Home = () => {
         api.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((data)=>{
             data.data.results.forEach((element)=>{
                 api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
-                    setNowMovies(prev=>[...prev,res.data]);
+                    setNowMovies((prev)=>{
+                        if(res.data.poster_path===null)return [...prev];
+                        return [...prev,res.data];
+                    });
                 }).catch((err)=>{
                     toast.warn(err.message)
                 })
@@ -74,7 +85,10 @@ const Home = () => {
         api.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((data)=>{
             data.data.results.forEach((element)=>{
                 api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
-                    setTop10Movies(prev=>[...prev,res.data]);
+                    setTop10Movies((prev)=>{
+                        if(res.data.poster_path===null)return [...prev];
+                        return [...prev,res.data];
+                    });
                 }).catch((err)=>{
                     toast.warn(err.message)
                 })
@@ -90,7 +104,10 @@ const Home = () => {
         api.get(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_API_KEY}&sort_by=popularity.desc&with_original_language=ko`).then((data)=>{
             data.data.results.forEach((element)=>{
                 api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
-                    setTrendingKdrama(prev=>[...prev,res.data]);
+                    setTrendingKdrama((prev)=>{
+                        if(res.data.poster_path===null)return [...prev];
+                        return [...prev,res.data];
+                    });
                 }).catch((err)=>{
                     toast.warn(err.message)
                 })
@@ -106,7 +123,48 @@ const Home = () => {
         api.get(`https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_original_language=hi&region=IN`).then((data)=>{
             data.data.results.forEach((element)=>{
                 api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
-                    setTrendingSeries(prev=>[...prev,res.data]);
+                    setTrendingSeries((prev)=>{
+                        if(res.data.poster_path===null)return [...prev];
+                        return [...prev,res.data];
+                    });
+                }).catch((err)=>{
+                    toast.warn(err.message)
+                })
+            })
+        }).catch((err)=>{
+            toast.warn(err.message)
+        }).finally(()=>{
+            setLoading(false);
+        })
+    }
+    const loadUpcomingMovies = ()=>{
+        setLoading(true);
+        api.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_original_language=hi&region=IN`).then((data)=>{
+            data.data.results.forEach((element)=>{
+                api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                    setUpcomingMovies((prev)=>{
+                        if(res.data.poster_path===null)return [...prev];
+                        return [...prev,res.data];
+                    });
+                }).catch((err)=>{
+                    toast.warn(err.message)
+                })
+            })
+        }).catch((err)=>{
+            toast.warn(err.message)
+        }).finally(()=>{
+            setLoading(false);
+        })
+    }
+    const loadPersons = ()=>{
+        setLoading(true);
+        api.get(`https://api.themoviedb.org/3/trending/person/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}`).then((data)=>{
+            data.data.results.forEach((element)=>{
+                api.get(`https://api.themoviedb.org/3/person/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                    setPersons((prev)=>{
+                        if(res.data.poster_path===null)return [...prev];
+                        return [...prev,res.data];
+                    });
                 }).catch((err)=>{
                     toast.warn(err.message)
                 })
@@ -152,6 +210,8 @@ const Home = () => {
         loadTop10Movies();
         loadTrendingKDramas();
         loadTrendingSeries();
+        loadUpcomingMovies();
+        loadPersons();
     },[])
 
     useEffect(()=>{
@@ -273,6 +333,40 @@ const Home = () => {
                             <img src={`https://image.tmdb.org/t/p/w500/${movies.poster_path}`} alt="" />
                             <FaRegPlayCircle className='icon'/>
                             <button>Add to My List</button>
+                        </div>
+                    )):''
+                }
+            </div>
+        </div>
+        <div className="upcomingMovies">
+            <Title title={'Upcoming Hindi Movies'}/>
+            <div className="upcomingList">
+                {
+                    (upcomingMovies.length>=0)?
+                    upcomingMovies.slice(0,10).map((movie,index)=>(
+                        <div key={index} className="upcomingMovie">
+                            <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt="" />
+                            <div className="content">
+                                <h3>{movie.title}</h3>
+                                <h5>New Movie</h5>
+                            </div>
+                            <p>Streaming on <span>{getMonth((new Date(movie.release_date)).getMonth())} {(new Date(movie.release_date)).getDay()}, {(new Date(movie.release_date)).getFullYear()}</span></p>
+                            <button>Watch Trailer</button>
+                        </div>
+                    ))
+                    :''
+                }
+            </div>
+        </div>
+        <div className="persons">
+            <Title title={'Top Artists'}/>
+            <div className="personList">
+                {
+                    (persons.length>0)?
+                    persons.slice(0,10).map((person,index)=>(
+                        <div key={index} className="person">
+                            <img src={`https://image.tmdb.org/t/p/w500/${person.images.profiles[0].file_path}`} alt="" />
+                            <h3>{person.name}</h3>
                         </div>
                     )):''
                 }
