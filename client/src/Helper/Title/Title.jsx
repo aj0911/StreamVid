@@ -1,11 +1,14 @@
 import React from 'react'
 import './Title.css'
 
-const Title = ({title}) => {
+const Title = ({title,viewMore = true}) => {
   return (
     <div className="title">
         <h3>{title}</h3>
-        <h5>{`View More > `}</h5>
+        {
+          (viewMore)?
+          <h5>{`View More > `}</h5>:''
+        }
     </div>
   )
 }

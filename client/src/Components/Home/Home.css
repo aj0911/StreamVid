@@ -295,6 +295,7 @@
         display: none;
         text-align: center;
         cursor: pointer;
+        z-index: 2;
     }
     .icon{
         position: absolute;
@@ -302,9 +303,16 @@
         color: var(--textColor);
         transition: var(--transition);
         display: none;
+        z-index: 2;
     }
     img{
         width: 100%;
+    }
+}
+.home .TrendingMovies .moviesList .movie.largeSeries{
+    height: 600px;
+    img{
+        height: 600px;
     }
 }
 .home .TrendingMovies .moviesList .movie .icon:hover{
@@ -341,12 +349,62 @@
     content: '';
     background-color: black;
     opacity: .5;
-    z-index: -1;
+    z-index: 1;
     border-radius: 10px;
 }
+.home .TrendingMovies .moviesList .latest_movies{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: calc((2 / 7) * (100% - 3rem));
+    overflow: hidden;
+    flex-shrink: 0;
+    padding: 10px 0;
+    img{
+        width: calc(60% - .25rem);
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 2px 2px 20px rgba(0,0,0,0.4);
+        transition: var(--transition);
+    }
+    h3{
+        width: calc(40% - .25rem);
+        text-align: center;
+        font-size: 10rem;
+        -webkit-text-stroke-color:rgba(108,82,238,0.8);
+        -webkit-text-stroke-width: 2px;
+        color: transparent;
+        transition: var(--transition);
+    }
+}
+.home .TrendingMovies .moviesList .latest_movies:hover{
+    img{
+        transform: scale(1.05);
+    }
+    h3{
+        color: rgba(108,82,238,0.8);
+        -webkit-text-stroke-color:var(--textColor);
 
+    }
+}
 /* For Tablets */
 @media screen and (max-width:999px) {
+    .home .TrendingMovies .moviesList .latest_movies{
+        gap: 0;
+    }
+    .home .TrendingMovies .moviesList .movie.largeSeries{
+        height: 400px;
+        img{
+            height: 400px;
+        }
+    }
+    .home .TrendingMovies .moviesList .latest_movies h3{
+        font-size: 4rem;
+        width: calc(30% - .5rem);
+    }
+    .home .TrendingMovies .moviesList .latest_movies img{
+        width: calc(70% - .5rem);
+    }
     .home .hero .movieBanner:nth-child(2) .content {
         width: 100%;
     }
@@ -361,6 +419,7 @@
         display: none;
     }
     
+    
 }
 /* For Mobiles */
 @media screen and (max-width:599px) {
@@ -371,7 +430,16 @@
     .home .TrendingMovies {
         gap: 0rem;
     }
-    
+    .home .TrendingMovies .moviesList .movie.largeSeries{
+        width: calc(50% - .5rem);
+        height: 300px;
+        img{
+            height: 300px;
+        }
+    }
+    .home .TrendingMovies .moviesList .latest_movies{
+        width: calc(50% - .5rem);
+    }
 
     .home .hero .movieBanner:nth-child(2) .content {
         gap: .5rem;
