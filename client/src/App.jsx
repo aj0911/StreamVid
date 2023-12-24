@@ -6,6 +6,8 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './Components/Home/Home'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import Movies from './Components/Movies/Movies'
+import Series from './Components/Series/Series'
 
 const App = () => {
   return (
@@ -13,6 +15,8 @@ const App = () => {
       <Header/>
       <Routes>
         <Route exact path='/' element={<Home/>}/>
+        <Route exact path='/Movies' element={<Movies/>}/>
+        <Route exact path='/Series' element={<Series/>}/>
       </Routes>
       <Footer/>
       <ToastContainer/>
