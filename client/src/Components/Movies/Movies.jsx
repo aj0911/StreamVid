@@ -4,11 +4,19 @@ import Loader from '../../Helper/Loader/Loader';
 import api from 'axios';
 import { toast } from 'react-toastify';
 import {  FaArrowLeft, FaArrowRight } from 'react-icons/fa'
+import ListView from '../../Helper/ListView/ListView';
 
 const Movies = () => {
 
   // States
   const [trendingMovies,setTrendingMovies] = useState([]);
+  const [koreanMovies,setKoreanMovies] = useState([]);
+  const [featuredMovies,setFeaturedMovies] = useState([]);
+  const [actionMovies,setActionMovies] = useState([]);
+  const [romanticMovies,setRomanticMovies] = useState([]);
+  const [comedyMovies,setComedyMovies] = useState([]);
+  const [blockbusterMovies,setBlockbusterMovies] = useState([]);
+  const [southIndianMovies,setSouthIndianMovies] = useState([]);
   const [loading,setLoading] = useState(false);
   const items = useRef();
   const [count,setCount] = useState(0);
@@ -35,7 +43,139 @@ const Movies = () => {
         setLoading(false);
     })
   }
-
+  const loadKoreanMovies = ()=>{
+    setLoading(true);
+    api.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&with_original_language=ko`).then((data)=>{
+        data.data.results.forEach((element)=>{
+            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                setKoreanMovies((prev)=>{
+                    if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
+                    return [...prev,res.data];
+                });
+            }).catch((err)=>{
+                toast.warn(err.message)
+            })
+        })
+    }).catch((err)=>{
+        toast.warn(err.message)
+    }).finally(()=>{
+        setLoading(false);
+    })
+  }
+  const loadFeaturedMovies = ()=>{
+    setLoading(true);
+    api.get(`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc`).then((data)=>{
+        data.data.results.forEach((element)=>{
+            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                setFeaturedMovies((prev)=>{
+                    if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
+                    return [...prev,res.data];
+                });
+            }).catch((err)=>{
+                toast.warn(err.message)
+            })
+        })
+    }).catch((err)=>{
+        toast.warn(err.message)
+    }).finally(()=>{
+        setLoading(false);
+    })
+  }
+  const loadActionMovies = ()=>{
+    setLoading(true);
+    api.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_genres=28&with_origin_country=IN`).then((data)=>{
+        data.data.results.forEach((element)=>{
+            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                setActionMovies((prev)=>{
+                    if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
+                    return [...prev,res.data];
+                });
+            }).catch((err)=>{
+                toast.warn(err.message)
+            })
+        })
+    }).catch((err)=>{
+        toast.warn(err.message)
+    }).finally(()=>{
+        setLoading(false);
+    })
+  }
+  const loadRomanticMovies = ()=>{
+    setLoading(true);
+    api.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_genres=10749&with_origin_country=IN`).then((data)=>{
+        data.data.results.forEach((element)=>{
+            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                setRomanticMovies((prev)=>{
+                    if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
+                    return [...prev,res.data];
+                });
+            }).catch((err)=>{
+                toast.warn(err.message)
+            })
+        })
+    }).catch((err)=>{
+        toast.warn(err.message)
+    }).finally(()=>{
+        setLoading(false);
+    })
+  }
+  const loadComedyMovies = ()=>{
+    setLoading(true);
+    api.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_genres=35`).then((data)=>{
+        data.data.results.forEach((element)=>{
+            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                setComedyMovies((prev)=>{
+                    if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
+                    return [...prev,res.data];
+                });
+            }).catch((err)=>{
+                toast.warn(err.message)
+            })
+        })
+    }).catch((err)=>{
+        toast.warn(err.message)
+    }).finally(()=>{
+        setLoading(false);
+    })
+  }
+  const loadBlockbusterMovies = ()=>{
+    setLoading(true);
+    api.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&sort_by=revenue.desc`).then((data)=>{
+        data.data.results.forEach((element)=>{
+            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                setBlockbusterMovies((prev)=>{
+                    if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
+                    return [...prev,res.data];
+                });
+            }).catch((err)=>{
+                toast.warn(err.message)
+            })
+        })
+    }).catch((err)=>{
+        toast.warn(err.message)
+    }).finally(()=>{
+        setLoading(false);
+    })
+  }
+  const loadSouthIndianMovies = ()=>{
+    setLoading(true);
+    api.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&sort_by=revenue.desc&include_adult=false&include_video=false&page=1&with_original_language=ta`).then((data)=>{
+        data.data.results.forEach((element)=>{
+            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                setSouthIndianMovies((prev)=>{
+                    if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
+                    return [...prev,res.data];
+                });
+            }).catch((err)=>{
+                toast.warn(err.message)
+            })
+        })
+    }).catch((err)=>{
+        toast.warn(err.message)
+    }).finally(()=>{
+        setLoading(false);
+    })
+  }
   const slideNext = ()=>{
     items.current.appendChild(items.current.children[0]);
     setCount(prev=>{
@@ -56,7 +196,6 @@ const Movies = () => {
   const touchEnd = (e)=>{
       setTouchEndX({x:e.changedTouches[0].screenX,y:e.changedTouches[0].screenY});
   }
-
   const checkDirection = ()=>{
 
       if(Math.abs(touchEndX.x - touchStartX.x) >=50 && Math.abs(touchEndX.y - touchStartX.y) <=50){
@@ -64,21 +203,27 @@ const Movies = () => {
           if(touchEndX.x > touchStartX.x)slidePrev();
       }
   }
-
   const mouseUp = (e)=>{
       setTouchEndX({x:e.clientX,y:e.clientY})
   }
   const mouseDown = (e)=>{
       setTouchStartX({x:e.clientX,y:e.clientY});
   }
-
   const nextClick = (index)=>{
     if(Math.abs(count-index)<=3)for(let i=0;i<Math.abs(count-index);i++)slideNext();
     else for(let i=0;i<Math.abs(trendingMovies.length-count+index);i++)slideNext();
   }
+
   // Rendering
   useEffect(()=>{
     loadTrendingMovies();
+    loadKoreanMovies();
+    loadFeaturedMovies();
+    loadActionMovies();
+    loadRomanticMovies();
+    loadComedyMovies();
+    loadBlockbusterMovies();
+    loadSouthIndianMovies();
   },[])
 
   useEffect(()=>{
@@ -107,6 +252,13 @@ const Movies = () => {
         <FaArrowLeft className='iconLeft' onClick={slidePrev}/>
         <FaArrowRight  className='iconRight' onClick={slideNext}/>
       </div>
+      <ListView title={'Korean Movies'} data={koreanMovies}/>
+      <ListView title={'Featured Movies'} data={featuredMovies}/>
+      <ListView title={'Bollywood Action Movies'} data={actionMovies}/>
+      <ListView title={'Best In Bollywood Romance'} data={romanticMovies} largeSize={true}/>
+      <ListView title={'Comedy Movies'} data={comedyMovies}/>
+      <ListView title={'Blockbuster Movies'} data={blockbusterMovies}/>
+      <ListView title={'South Indian Blockbusters'} data={southIndianMovies}  recentlyAdded={true}/>
     </div>
   )
 }

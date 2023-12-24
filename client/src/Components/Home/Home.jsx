@@ -158,7 +158,7 @@ const Home = () => {
     }
     const loadPersons = ()=>{
         setLoading(true);
-        api.get(`https://api.themoviedb.org/3/trending/person/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}`).then((data)=>{
+        api.get(`https://api.themoviedb.org/3/person/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}`).then((data)=>{
             data.data.results.forEach((element)=>{
                 api.get(`https://api.themoviedb.org/3/person/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
                     setPersons((prev)=>{

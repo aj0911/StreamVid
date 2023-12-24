@@ -1,0 +1,144 @@
+.ListView{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    .list{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+        overflow:scroll;
+        width: 100%;
+        padding: 20px 0;
+        .item:first-child{
+            margin-left: 5%;
+        }
+        .item:last-child{
+            margin-right: 5%;
+        }
+        .item{
+            width: calc(25% - .75rem);
+            flex-shrink: 0;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            z-index: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img{
+                width: 100%;
+                object-fit: cover;
+            }
+            .icon{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                font-size: 3rem;
+                transform: translate(-50%,-50%);
+                color: var(--textColor);
+                z-index: 1;
+                cursor: pointer;
+                transition: var(--transition);
+                opacity: 0;
+            }
+            .icon:hover{
+                font-size: calc(1.05 * 3rem);
+                color: var(--secColor);
+            }
+            button{
+                position: absolute;
+                bottom: 20px;
+                left: 20px;
+                width: calc(100% - 40px);
+                padding: 5px;
+                font-size: 1.1rem;
+                font-weight: 600;
+                border: none;
+                background-color: rgba(255,255,255,0.1);
+                -webkit-backdrop-filter: blur(10px);
+                backdrop-filter: blur(10px);
+                color: var(--textColor);
+                border-radius: 5px;
+                transition: var(--transition);
+                text-align: center;
+                cursor: pointer;
+                z-index: 1; 
+                opacity: 0;
+            }
+            button:hover{
+                background-color: var(--secColor);
+                color: var(--textColor);
+                transform: scale(1.05);
+            }
+        }
+        .item:hover::after{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            content: '';
+            background-color: black;
+            opacity: .5;
+            z-index: .5;
+        }
+        .item:hover{
+            transform: scale(1.05);
+            .icon{
+                opacity: 1;
+            }
+            button{
+                opacity: 1;
+            }
+        }
+        .item.largeSize{
+            img{
+                width: 100%;
+                object-fit: fill;
+                height: 600px;
+            }
+        }
+    }
+}
+
+/* For Tablets */
+@media screen and (max-width:999px) {
+    .ListView{
+        .list{
+            .item{
+                width: calc(calc(100% - 2rem) / 3);
+                .icon{
+                    display: none;
+                }
+                button{
+                    display: none;
+                }
+            }
+            .item.largeSize{
+                img{
+                    height: 400px;
+                }
+            }
+        }
+    }
+    
+}
+/* For Mobiles */
+@media screen and (max-width:599px) {
+    .ListView{
+        .list{
+            .item.largeSize{
+                width: calc(50% - .5rem);
+                img{
+                    height: 300px;
+                }
+            }
+        }
+    }
+}
