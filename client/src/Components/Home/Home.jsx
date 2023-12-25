@@ -6,6 +6,7 @@ import {  FaArrowLeft, FaArrowRight, FaBookmark, FaRegPlayCircle, FaStar } from 
 import Loader from '../../Helper/Loader/Loader'
 import Title from '../../Helper/Title/Title'
 import { getMonth } from '../../Helper/Helper'
+import Btns from '../../Helper/Btns/Btns'
 
 const Home = () => {
     // States
@@ -246,16 +247,7 @@ const Home = () => {
                                     <h3>{(Math.floor(movie.runtime/60)>=1)?`${Math.floor(movie.runtime/60)} hr `:``}{(movie.runtime%60===0)?``:`${movie.runtime%60} mins `}</h3>
                                 </div>
                                 <p>Enjoy exclusive Amazon Originals as well as popular movies and TV shows for USD 120z/month. Watch now, cancel anytime.</p>
-                                <div className="btns">
-                                    <button className='play' onClick={()=>console.log('clicked')}>
-                                        <h3>Play Now</h3>
-                                        <FaRegPlayCircle/>
-                                    </button>
-                                    <button className='watchLater' onClick={()=>console.log('clicked')}>
-                                        <h3>Watch Later</h3>
-                                        <FaBookmark/>
-                                    </button>
-                                </div>
+                                <Btns/>
                             </div>
                         </div>
                     )})

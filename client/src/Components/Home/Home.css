@@ -156,57 +156,7 @@
         font-weight: 500;
         color: var(--textColor);
     }
-    .btns{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        margin-top: 1rem;
-        .play{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem; 
-            border: none;
-            padding: 10px 20px;
-            background: linear-gradient(45deg,var(--secColor) 70% ,var(--secColorDark));
-            border-radius: 5px;
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--textColor);
-            font-size: 1.3rem;
-            >h3{
-                font-weight: 700;
-            }
-        }
-        .watchLater{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem; 
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--textColor);
-            background-color: transparent;
-            font-size: 1.3rem;
-            >h3{
-                font-weight: 700;
-            }
-        }
-    }
 }
-.home .hero .movieBanner .content .btns .play:hover{
-    transform: scale(1.05);
-    box-shadow: 10px 10px 50px rgba(108,82,238,0.2);
-}
-.home .hero .movieBanner .content .btns .watchLater:hover{
-    color: var(--secColor);
-    transform: scale(1.05);
-}
-
 .home .hero .sliderNext{
     position: absolute;
     right: 5px;
@@ -606,21 +556,6 @@
         }
         >p {
             font-size: .9rem;
-        }
-        .btns {
-            gap: .5rem;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            .play {
-                padding: 5px 10px;
-                font-size: .9rem;
-                border-radius: 3px;
-            }
-            .watchLater{
-                font-size: .9rem;
-                padding: 5px 10px;
-            }
         }
     }
     .home .upcomingMovies .upcomingList .upcomingMovie{
