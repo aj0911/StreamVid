@@ -8,6 +8,8 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Movies from './Components/Movies/Movies'
 import Series from './Components/Series/Series'
+import MovieDetails from './Components/Movies/MovieDetails'
+import SeriesDetails from './Components/Series/SeriesDetails'
 
 const App = () => {
   return (
@@ -16,7 +18,10 @@ const App = () => {
       <Routes>
         <Route exact path='/' element={<Home/>}/>
         <Route exact path='/Movies' element={<Movies/>}/>
+        <Route exact path='/Movies/:id' element={<MovieDetails/>}/>
         <Route exact path='/Series' element={<Series/>}/>
+        <Route exact path='/Series/:id' element={<SeriesDetails/>}/>
+
       </Routes>
       <Footer/>
       <ToastContainer/>

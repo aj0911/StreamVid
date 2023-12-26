@@ -5,6 +5,7 @@ import api from 'axios';
 import { toast } from 'react-toastify';
 import {  FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 import ListView from '../../Helper/ListView/ListView';
+import { useNavigate } from 'react-router-dom';
 
 const Movies = () => {
 
@@ -22,13 +23,14 @@ const Movies = () => {
   const [count,setCount] = useState(0);
   const [touchStartX,setTouchStartX] = useState({x:0,y:0});
   const [touchEndX,setTouchEndX] = useState({x:0,y:0});
+  const navigate = useNavigate();
 
   // functions
   const loadTrendingMovies = ()=>{
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&with_original_language=hi`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setTrendingMovies((prev)=>{
                     if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
                     return [...prev,res.data];
@@ -47,7 +49,7 @@ const Movies = () => {
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&with_original_language=ko`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setKoreanMovies((prev)=>{
                     if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
                     return [...prev,res.data];
@@ -66,7 +68,7 @@ const Movies = () => {
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setFeaturedMovies((prev)=>{
                     if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
                     return [...prev,res.data];
@@ -85,7 +87,7 @@ const Movies = () => {
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_genres=28&with_origin_country=IN`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setActionMovies((prev)=>{
                     if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
                     return [...prev,res.data];
@@ -104,7 +106,7 @@ const Movies = () => {
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_genres=10749&with_origin_country=IN`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setRomanticMovies((prev)=>{
                     if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
                     return [...prev,res.data];
@@ -123,7 +125,7 @@ const Movies = () => {
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_genres=35`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setComedyMovies((prev)=>{
                     if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
                     return [...prev,res.data];
@@ -142,7 +144,7 @@ const Movies = () => {
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&sort_by=revenue.desc`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setBlockbusterMovies((prev)=>{
                     if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
                     return [...prev,res.data];
@@ -161,7 +163,7 @@ const Movies = () => {
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&sort_by=revenue.desc&include_adult=false&include_video=false&page=1&with_original_language=ta`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setSouthIndianMovies((prev)=>{
                     if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
                     return [...prev,res.data];
@@ -242,7 +244,7 @@ const Movies = () => {
                 <div className="content">
                   <p>World Digital Premiere</p>
                   <h3>{movie.title}</h3>
-                  <button>Streaming Now</button>
+                  <button onClick={()=>{navigate(`/Movies/${movie.id}`,{state:movie})}}>Streaming Now</button>
                 </div>
               </div>
             ))

@@ -2,11 +2,14 @@ import React, { useEffect, useRef, useState } from 'react'
 import './Home.css'
 import api from 'axios'
 import { toast } from 'react-toastify'
-import {  FaArrowLeft, FaArrowRight, FaBookmark, FaRegPlayCircle, FaStar } from 'react-icons/fa'
+import {  FaArrowLeft, FaArrowRight, FaStar } from 'react-icons/fa'
 import Loader from '../../Helper/Loader/Loader'
 import Title from '../../Helper/Title/Title'
 import { getMonth } from '../../Helper/Helper'
 import Btns from '../../Helper/Btns/Btns'
+import { useNavigate } from 'react-router-dom'
+import ListView from '../../Helper/ListView/ListView';
+
 
 const Home = () => {
     // States
@@ -22,13 +25,14 @@ const Home = () => {
     const [loading,setLoading] = useState(false);
     const [touchStartX,setTouchStartX] = useState({x:0,y:0});
     const [touchEndX,setTouchEndX] = useState({x:0,y:0});
+    const navigate  = useNavigate();
 
     // Functions
     const loadTrendingMovies = ()=>{
         setLoading(true);
-        api.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((data)=>{
+        api.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((data)=>{
             data.data.results.forEach((element)=>{
-                api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                     setTrendingMovies((prev)=>{
                         if(res.data.poster_path===null)return [...prev];
                         return [...prev,res.data];
@@ -45,9 +49,9 @@ const Home = () => {
     }
     const loadNewMovies = ()=>{
         setLoading(true);
-        api.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((data)=>{
+        api.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((data)=>{
             data.data.results.forEach((element)=>{
-                api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                     setNewMovies((prev)=>{
                         if(res.data.poster_path===null)return [...prev];
                         return [...prev,res.data];
@@ -64,9 +68,9 @@ const Home = () => {
     }
     const loadNowMovies = ()=>{
         setLoading(true);
-        api.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((data)=>{
+        api.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((data)=>{
             data.data.results.forEach((element)=>{
-                api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                     setNowMovies((prev)=>{
                         if(res.data.poster_path===null)return [...prev];
                         return [...prev,res.data];
@@ -83,9 +87,9 @@ const Home = () => {
     }
     const loadTop10Movies = ()=>{
         setLoading(true);
-        api.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((data)=>{
+        api.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((data)=>{
             data.data.results.forEach((element)=>{
-                api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                     setTop10Movies((prev)=>{
                         if(res.data.poster_path===null)return [...prev];
                         return [...prev,res.data];
@@ -104,7 +108,7 @@ const Home = () => {
         setLoading(true);
         api.get(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_API_KEY}&sort_by=popularity.desc&with_original_language=ko`).then((data)=>{
             data.data.results.forEach((element)=>{
-                api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                     setTrendingKdrama((prev)=>{
                         if(res.data.poster_path===null)return [...prev];
                         return [...prev,res.data];
@@ -123,7 +127,7 @@ const Home = () => {
         setLoading(true);
         api.get(`https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_original_language=hi&region=IN`).then((data)=>{
             data.data.results.forEach((element)=>{
-                api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                     setTrendingSeries((prev)=>{
                         if(res.data.poster_path===null)return [...prev];
                         return [...prev,res.data];
@@ -142,7 +146,7 @@ const Home = () => {
         setLoading(true);
         api.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_original_language=hi&region=IN`).then((data)=>{
             data.data.results.forEach((element)=>{
-                api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                api.get(`https://api.themoviedb.org/3/movie/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                     setUpcomingMovies((prev)=>{
                         if(res.data.poster_path===null)return [...prev];
                         return [...prev,res.data];
@@ -161,7 +165,7 @@ const Home = () => {
         setLoading(true);
         api.get(`https://api.themoviedb.org/3/person/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}`).then((data)=>{
             data.data.results.forEach((element)=>{
-                api.get(`https://api.themoviedb.org/3/person/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+                api.get(`https://api.themoviedb.org/3/person/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                     setPersons((prev)=>{
                         if(res.data.poster_path===null)return [...prev];
                         return [...prev,res.data];
@@ -247,7 +251,7 @@ const Home = () => {
                                     <h3>{(Math.floor(movie.runtime/60)>=1)?`${Math.floor(movie.runtime/60)} hr `:``}{(movie.runtime%60===0)?``:`${movie.runtime%60} mins `}</h3>
                                 </div>
                                 <p>Enjoy exclusive Amazon Originals as well as popular movies and TV shows for USD 120z/month. Watch now, cancel anytime.</p>
-                                <Btns/>
+                                <Btns item={movie}/>
                             </div>
                         </div>
                     )})
@@ -256,36 +260,8 @@ const Home = () => {
             <FaArrowLeft className='sliderPrev' onClick={slidePrev}/>
             <FaArrowRight className='sliderNext' onClick={slideNext}/>
         </div>
-        <div className="TrendingMovies">
-            <Title title={'Trending Movies'}/>
-            <div className="moviesList">
-                {
-                    (nowMovies.length>0)?
-                    nowMovies.slice(0,10).map((movies,index)=>(
-                        <div key={index} className="movie">
-                            <img src={`https://image.tmdb.org/t/p/w500/${movies.poster_path}`} alt="" />
-                            <FaRegPlayCircle className='icon'/>
-                            <button>Add to My List</button>
-                        </div>
-                    )):''
-                }
-            </div>
-        </div>
-        <div className="TrendingMovies">
-            <Title title={'New Release'}/>
-            <div className="moviesList">
-                {
-                    (newMovies.length>0)?
-                    newMovies.slice(0,10).map((movies,index)=>(
-                        <div key={index} className="movie">
-                            <img src={`https://image.tmdb.org/t/p/w500/${movies.poster_path}`} alt="" />
-                            <FaRegPlayCircle className='icon'/>
-                            <button>Add to My List</button>
-                        </div>
-                    )):''
-                }
-            </div>
-        </div>
+        <ListView title={'Trending Movies'} data={nowMovies}/>
+        <ListView title={'New Release'} data={newMovies}/>
         <div className="TrendingMovies">
             <Title title={'Top 10 at Streamvid'} viewMore={false}/>
             <div className="moviesList">
@@ -294,42 +270,14 @@ const Home = () => {
                     top10Movies.slice(0,10).map((movies,index)=>(
                         <div key={index} className="latest_movies">
                             <h3>{index+1}</h3>
-                            <img src={`https://image.tmdb.org/t/p/w500/${movies.poster_path}`} alt="" />
+                            <img style={{cursor:'pointer'}} src={`https://image.tmdb.org/t/p/w500/${movies.poster_path}`} alt="" onClick={()=>{navigate(`/${(movies.seasons)?'Series':'Movies'}/${movies.id}`,{state:movies})}} />
                         </div>
                     )):''
                 }
             </div>
         </div>
-        <div className="TrendingMovies">
-            <Title title={'New K-Dramas'}/>
-            <div className="moviesList">
-                {
-                    (trendingKdrama.length>0)?
-                    trendingKdrama.slice(0,10).map((movies,index)=>(
-                        <div key={index} className="movie">
-                            <img src={`https://image.tmdb.org/t/p/w500/${movies.poster_path}`} alt="" />
-                            <FaRegPlayCircle className='icon'/>
-                            <button>Add to My List</button>
-                        </div>
-                    )):''
-                }
-            </div>
-        </div>
-        <div className="TrendingMovies">
-            <Title title={'Latest Series'}/>
-            <div className="moviesList">
-                {
-                    (trendingSeries.length>0)?
-                    trendingSeries.slice(0,10).map((movies,index)=>(
-                        <div key={index} className="movie largeSeries">
-                            <img src={`https://image.tmdb.org/t/p/w500/${movies.poster_path}`} alt="" />
-                            <FaRegPlayCircle className='icon'/>
-                            <button>Add to My List</button>
-                        </div>
-                    )):''
-                }
-            </div>
-        </div>
+        <ListView title={'New K-Dramas'} data={trendingKdrama}/>
+        <ListView title={'Latest Series'} data={trendingSeries} largeSize={true}/>
         <div className="upcomingMovies">
             <Title title={'Upcoming Hindi Movies'}/>
             <div className="upcomingList">

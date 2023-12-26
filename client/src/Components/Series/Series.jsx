@@ -27,7 +27,7 @@ const Series = () => {
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.REACT_APP_TMDB_API_KEY}`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setTrendingSeries((prev)=>{
                     if(res.data.poster_path===null || res.data.backdrop_path === null || res.data.first_air_date === '')return [...prev];
                     return [...prev,res.data];
@@ -46,7 +46,7 @@ const Series = () => {
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setTVSeries((prev)=>{
                     if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
                     return [...prev,res.data];
@@ -65,7 +65,7 @@ const Series = () => {
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_origin_country=IN&with_original_language=hi`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setHindiSeries((prev)=>{
                     if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
                     return [...prev,res.data];
@@ -84,7 +84,7 @@ const Series = () => {
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_genres=10749&sort_by=popularity.desc&with_original_language=ko`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setRomanticKdramas((prev)=>{
                     if(res.data.poster_path===null)return [...prev];
                     return [...prev,res.data];
@@ -103,7 +103,7 @@ const Series = () => {
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_API_KEY}&sort_by=popularity.desc&with_original_language=tr`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setTurkishDramas((prev)=>{
                     if(res.data.poster_path===null)return [...prev];
                     return [...prev,res.data];
@@ -122,7 +122,7 @@ const Series = () => {
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_API_KEY}&sort_by=popularity.desc&with_original_language=ta`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setSouthIndianShows((prev)=>{
                     if(res.data.poster_path===null)return [...prev];
                     return [...prev,res.data];
@@ -141,7 +141,7 @@ const Series = () => {
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_genres=10765,10759`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setSciFiSeries((prev)=>{
                     if(res.data.poster_path===null)return [...prev];
                     return [...prev,res.data];
@@ -160,7 +160,7 @@ const Series = () => {
     setLoading(true);
     api.get(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_origin_country=KR&with_original_language=ko&with_genres=10759`).then((data)=>{
         data.data.results.forEach((element)=>{
-            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
                 setActionKdramas((prev)=>{
                     if(res.data.poster_path===null)return [...prev];
                     return [...prev,res.data];
@@ -232,7 +232,7 @@ const Series = () => {
                 <div key={index} className={`serie ${(count===index)?'active':''}`} style={{'--index':index - count + 1,backgroundImage:`url("https://image.tmdb.org/t/p/original${(window.innerWidth>999)?series.backdrop_path:series.poster_path}")`}} onTouchStart={(count===index)?touchStart:()=>{}} onTouchEnd={(count===index)?touchEnd:()=>{}} onMouseUp={(count===index)?mouseUp:()=>{}} onMouseDown={(count===index)?mouseDown:()=>{}}>
                     <h3>{series.name}</h3>
                     <p>{series.overview.slice(0,250)}...</p>
-                    <Btns/>
+                    <Btns item={series}/>
                     <div className="content">
                         <h5>{(new Date(series.first_air_date)).getFullYear()}</h5>
                         <div className="dot"></div>
