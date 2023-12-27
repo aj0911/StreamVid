@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.css'
 import Header from './Components/Header/Header'
 import Footer from './Components/Footer/Footer'
@@ -12,13 +12,17 @@ import MovieDetails from './Components/Movies/MovieDetails'
 import SeriesDetails from './Components/Series/SeriesDetails'
 
 const App = () => {
+  const [active,setActive] = useState(false);
+  useEffect(()=>{
+    setActive(false);
+  },[])
   return (
-    <div className='App'>
-      <Header/>
+    <div className={`App ${active?'active':''}`}>
+      <Header />
       <Routes>
         <Route exact path='/' element={<Home/>}/>
         <Route exact path='/Movies' element={<Movies/>}/>
-        <Route exact path='/Movies/:id' element={<MovieDetails/>}/>
+        <Route exact path='/Movies/:id' element={<MovieDetails active={active} setActive={setActive}/>}/>
         <Route exact path='/Series' element={<Series/>}/>
         <Route exact path='/Series/:id' element={<SeriesDetails/>}/>
 

@@ -5,6 +5,7 @@
     flex-direction: column;
     gap: 2rem;
     width: 100%;
+    padding-top: 100px;
     .banner{
         width: 100%;
         min-height: 80vh;
@@ -138,6 +139,7 @@
 /* For Mobiles */
 @media screen and (max-width:599px) {
     #Series{
+        padding-top: 70px;
         .banner{
             .serie{
                 >h3{

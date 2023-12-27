@@ -1,22 +1,20 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useEffect,  useState } from 'react'
 import './Movies.css'
 import { useLocation } from 'react-router-dom'
 import ReactStars from 'react-stars'
-import { FaEye } from 'react-icons/fa'
+import { FaCross, FaEye } from 'react-icons/fa'
 import Btns from '../../Helper/Btns/Btns'
 import Title from '../../Helper/Title/Title'
-import Loader from '../../Helper/Loader/Loader';
+import { MdClose, MdOutlineClose } from 'react-icons/md'
 
-const MovieDetails = () => {
+const MovieDetails = ({active,setActive}) => {
     const {state} = useLocation();
     const [cast,setCast] = useState('');
     const [crew,setCrew] = useState('');
-    const [loading,setLoading] = useState(false);
     console.log(state);
 
     // Rendering
-    useLayoutEffect(()=>{
-        setLoading(true);
+    useEffect(()=>{
         setCast(prev=>{
             state.credits.cast.slice(0,5).forEach(({name},index)=>{
                 prev += name+`${(index===4)?'':', '}`;
@@ -29,11 +27,9 @@ const MovieDetails = () => {
             })
             return prev;
         })
-        setLoading(false);
     },[])
   return (
-    (loading)?<Loader size={100}/>:
-    <div id="MovieDetails">
+    <div id="MovieDetails" className={`${active?'active':''}`}>
         <div className="banner" style={{backgroundImage:`url("https://image.tmdb.org/t/p/original${state.backdrop_path}")`}}>
             <div className="left">
                 <img src={`https://image.tmdb.org/t/p/w780${state.poster_path}`} alt="" />
@@ -41,7 +37,7 @@ const MovieDetails = () => {
             <div className="right">
                 <h3>{state.title}</h3>
                 <div className="row">
-                    <ReactStars count={5} value={Math.round((state.vote_average*5))/10} edit={false} color1='#FEF5E9' color2='#6C52EE' size={30} half={true}/>
+                    <ReactStars count={5} value={Math.round((state.vote_average*5))/10} edit={false} color1='#FEF5E9' color2='#6C52EE' size={window.innerWidth<600?15:30} half={true}/>
                     <h3>{Math.round((state.vote_average*10))/10}</h3>
                     <div className="dot"></div>
                     <FaEye className='icon'/>
@@ -68,7 +64,7 @@ const MovieDetails = () => {
                 <p>{state.overview}</p>
                 <p><span>Cast: </span>{cast}</p>
                 <p><span>Crew: </span>{crew}</p>
-                <Btns title1='Watch Now' btn1func={()=>{alert('I am pressed')}}/>
+                <Btns title1='Watch Now' btn1func={()=>{setActive(true);}}/>
             </div>
         </div>
         <div className="peoples">
@@ -102,6 +98,13 @@ const MovieDetails = () => {
                 }
             </div>
         </div>
+        {
+            !active?'':
+            <div className={`videoContainer`}>
+                <iframe className='videoPlayer' src={`https://www.youtube.com/embed/${(state.videos.results[0])?state.videos.results[0].key:''}?si=zbqzYY5FD71dS5zH`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <MdOutlineClose onClick={()=>setActive(false)} className='icon'/>
+            </div>
+        }
     </div>
   )
 }

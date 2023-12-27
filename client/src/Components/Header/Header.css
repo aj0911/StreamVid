@@ -1,9 +1,12 @@
 header{
+    position: fixed;
+    z-index: 50;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 5%;
+    transition: var(--transition);
     .left{
         display: flex;
         justify-content: flex-start;
@@ -22,6 +25,13 @@ header{
         align-items: center;
         gap: 2rem;
     }
+}
+
+.App.active header{
+    display: none;
+}
+header.sticky{
+    background-color: rgba(11, 19, 32, .95);
 }
 
 header .left .logo{

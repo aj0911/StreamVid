@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import './Header.css'
 import { FaFilm, FaHome, FaSearch, FaTv, FaUser } from 'react-icons/fa'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -6,9 +6,18 @@ import { NavLink, useNavigate } from 'react-router-dom'
 const Header = () => {
 
     const navigate = useNavigate();
+    const nav = useRef();
+    document.addEventListener('scroll',()=>{
+        if(window.scrollY>20){
+            nav.current.classList.add('sticky')
+        }
+        if(window.scrollY<20){
+            nav.current.classList.remove('sticky')
+        }
+    })
 
   return (
-    <header>
+    <header ref={nav}>
         <div className="left">
             <div className="logo">
                 <img src={require('../../Assets/logo-bgRemove.png')} alt="" />

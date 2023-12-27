@@ -31,11 +31,13 @@ body{
     text-decoration: none;
 }
 
-
 /* For Tablets */
 @media screen and (max-width:999px) {
     .App{
         padding-bottom: calc(40px + 3.3rem);
+    }
+    .App.active{
+        padding-bottom: 0;
     }
     
 }

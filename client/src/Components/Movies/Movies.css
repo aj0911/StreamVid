@@ -10,6 +10,7 @@
         min-height: 100vh;
         position: relative;
         margin-bottom: 200px;
+        padding-top: 100px;
         .movieLists{
             position: absolute;
             top: 0;
@@ -69,7 +70,7 @@
                     display: flex;
                     justify-content: center;
                     align-items: flex-start;
-                    width: 50%;
+                    width: 80%;
                     flex-direction: column;
                     animation: animateText 1s ease-in;
                     p{
@@ -163,6 +164,7 @@
         background-repeat: no-repeat;
         z-index: 0;
         position: relative;
+        padding-top: 100px;
         .left{
             width: 30%;
             padding: 30px;
@@ -248,12 +250,14 @@
         align-items: flex-start;
         flex-direction: column;
         .peopleList{
-            padding-left: 5%;
             display: flex;
             justify-content: flex-start;
             align-items: center;
             gap: 1rem;
             overflow: scroll;
+            .people:first-child{
+                margin-left: 5%;
+            }
             .people:last-child{
                 margin-right: 5%;
             }
@@ -284,7 +288,7 @@
                     gap: .5rem;
                     display: none;
                     h3{
-                        font-size: 2rem;
+                        font-size: 1.5rem;
                         font-weight: 800;
                         color: var(--textColor);
                         text-align: center;
@@ -295,7 +299,7 @@
                         color: var(--secColor);
                     }
                     h5{
-                        font-size: 1.3rem;
+                        font-size: 1.1rem;
                         font-weight: 600;
                         color: var(--textColor);
                         text-align: center;
@@ -324,6 +328,52 @@
             }
         }
     }
+    .videoContainer{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        display: none;
+        backdrop-filter: blur(33px);
+        background-color: rgba(0,0,0,.7);
+        z-index: 100;
+        .videoPlayer{
+            width: 100%;
+            height: 100vh;
+            border-radius: 10px;
+            box-shadow: 10px 10px 50px rgba(0,0,0,.4);
+            transition: var(--transition);
+            animation: animateText 1s ease-in;
+        }
+        .icon{
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 3rem;
+            color: var(--textColor);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .icon:hover{
+            transform: scale(1.05);
+            color: var(--secColor);
+        }
+    }
+}
+
+#MovieDetails.active{
+    height: 100vh;
+    overflow: hidden;
+    .videoContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;       
+    }
+}
+
+#MovieDetails.active + footer{
+    display: none;
 }
 
 /* For Tablets */
@@ -347,7 +397,38 @@
             display: none;
         }
     }
-    
+    #MovieDetails{
+        .banner{
+            flex-direction: column;
+            .left{
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                padding: 0;
+                img{
+                    width: 50%;
+                }
+            }
+            .right{
+                width: 100%;
+                align-items: flex-start;
+            }
+        }
+        .peoples{
+            .peopleList{
+                .people{
+                    width:calc(calc(100% - 2rem) / 3);
+                    .content{
+                        top: 10px;
+                        left: 10px;
+                        width: calc(100% - 10px);
+                        height: calc(100% - 10px);
+                    }
+                }
+            }
+        }
+    }
 }
 /* For Mobiles */
 @media screen and (max-width:599px) {
@@ -377,11 +458,12 @@
                         width: 100%;
                         p{
                             text-align: center;
-                            font-size: 1.2rem;
+                            font-size: 1.1rem;
                         }
                         h3{
-                            font-size: 3rem;
+                            font-size: 2rem;
                             text-align: center;
+                            -webkit-text-stroke-width: 1px;
                         }
                         button{
                             border-radius: 3px;
@@ -393,6 +475,65 @@
                 }
             }
             
+        }
+    }
+    #MovieDetails{
+        .banner{
+            gap: 1rem;
+            .left{
+                img{
+                    width: 70%;
+                }
+            }
+            .right{
+                width: 100%;
+                align-items: flex-start;
+                .row{
+                    gap: .5rem;
+                    h3{
+                        font-size: .9rem;
+                    }
+                    .icon{
+                        font-size: .9rem;
+                    }
+                    .dot{
+                        width: 3px;
+                        height: 3px;
+                    }
+                }
+                >h3 {
+                    font-size: 2rem;
+                    font-weight: 800;
+                    color: var(--textColor);
+                }
+                >h3::first-letter{
+                    font-size: 2.5rem;
+                }
+                >p:nth-child(5) {
+                    font-size: .7rem;
+                }
+                >p{
+                    font-size: .9rem;
+                    span{
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+        .peoples{
+            .peopleList{
+                .people{
+                    .content{
+                        gap: 0.1rem;
+                        h3{
+                            font-size: .9rem;
+                        }
+                        h5{
+                            font-size: .7rem;
+                        }
+                    }
+                }
+            }
         }
     }
 }
