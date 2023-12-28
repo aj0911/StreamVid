@@ -10,6 +10,7 @@ import Movies from './Components/Movies/Movies'
 import Series from './Components/Series/Series'
 import MovieDetails from './Components/Movies/MovieDetails'
 import SeriesDetails from './Components/Series/SeriesDetails'
+import SeriesPlayer from './Components/Series/SeriesPlayer'
 
 const App = () => {
   const [active,setActive] = useState(false);
@@ -24,7 +25,8 @@ const App = () => {
         <Route exact path='/Movies' element={<Movies/>}/>
         <Route exact path='/Movies/:id' element={<MovieDetails active={active} setActive={setActive}/>}/>
         <Route exact path='/Series' element={<Series/>}/>
-        <Route exact path='/Series/:id' element={<SeriesDetails active={active} setActive={setActive}/>}/>}/>
+        <Route exact path='/Series/player/:id' element={<SeriesPlayer/>}/>
+        <Route exact path='/Series/:id' element={<SeriesDetails active={active} setActive={setActive}/>} />
 
       </Routes>
       <Footer/>

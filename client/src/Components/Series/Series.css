@@ -172,7 +172,7 @@
                     border-radius: 10px;
                     transition: var(--transition);
                 }
-                position: relative;;
+                position: relative;
                 .vidBox{
                     position: absolute;
                     bottom: 10px;
@@ -228,6 +228,146 @@
     }
 }
 
+#SeriesPlayer{
+    padding: 100px 5% 20px 5%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    .player{
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 1rem;
+        .left{
+            width: calc(70% - .5rem);
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 2rem;
+            .videoPlayer{
+                width: 100%;
+                height: 60vh;
+                border-radius: 10px;
+                border: none;
+                box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.4);
+            }
+            .data{
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                gap: .5rem;
+                flex-direction: column;
+                width: 100%;
+                >h3{
+                    font-size: 3rem;
+                    font-weight: 700;
+                    color: var(--textColor);
+                }
+                .row{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1rem;
+                    h3{
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        color: var(--textColor);  
+                    }
+                    .box{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: .5rem;
+                        .icon{
+                            color: var(--secColor);
+                            font-size: 1.1rem;
+                        }
+                    }
+                }
+            }
+        }
+        .right{
+            width: calc(30% - .5rem);
+            overflow-x: hidden;
+            overflow-y: scroll;
+            height: calc(100vh - 150px);
+            border-radius: 5px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-direction: column;
+            box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.4);
+            gap: 1rem;
+            .episode.active{
+                background:var(--bgColorLight);
+            }
+            .episode{
+                width: 100%;
+                height: calc((100vh - 150px - 3rem) / 3);
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 1rem;
+                cursor: pointer;
+                .imgBox{
+                    width: 50%;
+                    img{
+                        width: 100%;
+                        box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.4);
+                        border-radius: 10px;
+                        transition: var(--transition);
+                    }
+                    position: relative;
+                    .vidBox{
+                        position: absolute;
+                        bottom: 10px;
+                        left: 10px;
+                        padding: 3px 6px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: .5rem;
+                        backdrop-filter: blur(33px);
+                        background: rgba(0, 0, 0, 0.2);
+                        border-radius: 30px;
+                        .icon{
+                            color: var(--textColor);
+                            font-size: .7rem;
+                        }
+                        h3{
+                            font-size: .7rem;
+                            font-weight: 600;
+                            color: var(--textColor);
+                        }
+                    }
+                }
+                .content{
+                    width: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-start;
+                    flex-direction: column;
+                    h5{
+                        font-size: .7rem;
+                        font-weight: 600;
+                        color: var(--secColor);
+                    }
+                    h3{
+                        font-size: 1.1rem;
+                        font-weight: 700;
+                        color: var(--textColor);
+                    }
+                }
+            }
+        }
+    }
+}
+
 /* For Tablets */
 @media screen and (max-width:999px) {
     #Series{
@@ -261,6 +401,41 @@
         .episodes{
             .episode{
                 width: calc(100% / 2.5);
+            }
+        }
+    }
+
+    #SeriesPlayer{
+        .player{
+            flex-direction: column;
+            gap: 3rem;
+            .left{
+                width: 100%;
+            }
+            .right{
+                overflow: auto;
+                width: 100%;
+                height: auto;
+                box-shadow: none;
+                .episode{
+                    height: auto;
+                    border-radius: 10px;
+                    .content{
+                        gap: .5rem;
+                        padding: 10px 10px 10px 0;
+                        h5{
+                            font-size: .9rem;    
+                        }
+                        h3{
+                            font-size: 1.5rem;    
+                        }
+                        p{
+                            font-size: .9rem;
+                            font-weight: 400;
+                            color: var(--secColorDark);
+                        }
+                    }
+                }
             }
         }
     }
@@ -348,6 +523,64 @@
             }
             .episode:last-child{
                 margin-right: 0;
+            }
+        }
+    }
+    #SeriesPlayer{
+        padding-top: 70px;
+        .player{
+            .left{
+                gap: 1rem;
+                .videoPlayer{
+                    height: 40vh;
+                }
+                .data{
+                    >h3{
+                        font-size: 2rem;
+                    }
+                    .row{
+                        justify-content: flex-start;
+                        flex-wrap: wrap;
+                        gap: .5rem;
+                        h3{
+                            font-size: .8rem;
+                        }
+                        margin-bottom: .5rem;
+                        .box{
+                            gap: .5rem;
+                            .icon{
+                                font-size: .8rem;
+                            }
+                        }
+                    }
+                }
+            }
+            .right{
+                .episode.active{
+                    .content{
+                        padding: 0 10px 10px 10px;
+                    }
+                }
+                .episode{
+                    flex-direction: column;
+                    gap: 0;
+                    .imgBox{
+                        width: 100%;
+                    }
+                    .content{
+                        width: 100%;
+                        gap: 0.1rem;
+                        h3{
+                            font-size: 1.1rem;
+                        }
+                        h5{
+                            font-size: .7rem;
+                        }
+                        p{
+                            font-size: .7rem;
+                        }
+                    }
+                }
             }
         }
     }

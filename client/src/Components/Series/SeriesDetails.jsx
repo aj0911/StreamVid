@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import ReactStars from 'react-stars'
 import { FaEye, FaRegPlayCircle } from 'react-icons/fa'
 import Btns from '../../Helper/Btns/Btns'
 import Title from '../../Helper/Title/Title'
-import {  MdOutlineClose } from 'react-icons/md'
 import '../Movies/Movies.css'
 import { toast } from 'react-toastify'
 import api from 'axios'
 import Loader from '../../Helper/Loader/Loader'
+import { convert0Number } from '../../Helper/Helper';
+
 
 const SeriesDetails = ({active,setActive}) => {
   // States
     const {state} = useLocation();
     const [seasonFiles,setSeasonFiles] = useState([]);
     const [loading,setLoading] = useState(false);
-    console.log(state);
+    const navigate = useNavigate();
     const [seasonData,setSeasonData] = useState({
       poster_path:state.poster_path,
       vote_average:state.vote_average,
@@ -65,10 +66,7 @@ const SeriesDetails = ({active,setActive}) => {
           setLoading(false);
       })
     }
-    const convert0Number = (num)=>{
-      if(num>=1 && num<10)return `0${num}`;
-      return `${num}`;
-    }
+    
     // Rendering
     useEffect(()=>{
       loadSeasons();
@@ -106,9 +104,8 @@ const SeriesDetails = ({active,setActive}) => {
                     <div className="dot"></div>
                     <h3>{state.number_of_seasons} Seasons</h3>
                 </div>
-                
                 <p>{seasonData.overview }</p>
-                <Btns title1='Start Watching' btn1func={()=>{setActive(true);}}/>
+                <Btns title1='Start Watching' btn1func={()=>navigate(`/Series/player/${seasonFiles[0].id}`,{state:{index:0,backdrop_path:state.backdrop_path,video:state.videos.results[0].key,seasonFiles,name:state.name,vote_average:state.vote_average,genre:state.genre}})}/>
                 <select value={seasonData.id} onChange={(e)=>handleSelect(e.target.value)}>
                   {
                     state.seasons.map((season,index)=>(
@@ -127,7 +124,7 @@ const SeriesDetails = ({active,setActive}) => {
               seasonFiles.sort((a,b)=>{
                 return a.episode_number - b.episode_number;
               }).map((seasonFile,index)=>(
-                <div key={index} className="episode">
+                <div key={index} className="episode" onClick={()=>{if(seasonFile.runtime)navigate(`/Series/player/${seasonFile.id}`,{state:{index,backdrop_path:state.backdrop_path,video:(state.videos.results[0])?.key,seasonFiles,name:state.name,vote_average:state.vote_average,genre:state.genre}})}}>
                   <div className="top">
                     <img src={`https://image.tmdb.org/t/p/original${seasonFile.still_path || state.backdrop_path}`} />
                     {
@@ -181,13 +178,6 @@ const SeriesDetails = ({active,setActive}) => {
                 }
             </div>
         </div>
-        {
-            !active?'':
-            <div className={`videoContainer`}>
-                <iframe className='videoPlayer' src={`https://www.youtube.com/embed/${(state.videos.results[0])?state.videos.results[0].key:''}?si=zbqzYY5FD71dS5zH`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                <MdOutlineClose onClick={()=>setActive(false)} className='icon'/>
-            </div>
-        }
     </div>
   )
 }
