@@ -24,7 +24,7 @@ const App = () => {
         <Route exact path='/Movies' element={<Movies/>}/>
         <Route exact path='/Movies/:id' element={<MovieDetails active={active} setActive={setActive}/>}/>
         <Route exact path='/Series' element={<Series/>}/>
-        <Route exact path='/Series/:id' element={<SeriesDetails/>}/>
+        <Route exact path='/Series/:id' element={<SeriesDetails active={active} setActive={setActive}/>}/>}/>
 
       </Routes>
       <Footer/>

@@ -118,6 +118,116 @@
     }
 }
 
+.SeriesDetails{
+    .banner{
+        flex-direction: row-reverse;
+        .right{
+            select{
+                margin-top: 2rem;
+                font-size: 1.3rem;
+                font-weight: 700;
+                border: none;
+                background-color: var(--secColor);
+                color: var(--textColor);
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: var(--transition);
+            }
+            select:focus{
+                outline-width: 0;
+            }
+            select:hover{
+                box-shadow: 5px 5px 20px rgba(108, 82, 238, 0.2);
+            }
+        }
+    }
+    .episodes{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        overflow-x: scroll;
+        width: 100%;
+        .episode:hover{
+            img{
+                transform: scale(1.05);
+            }
+        }
+        .episode{
+            overflow: hidden;
+            padding: 20px;
+            flex-shrink: 0;
+            width: 25%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 1rem;
+            .top{
+                width: 100%;
+                img{
+                    width: 100%;
+                    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+                    cursor: pointer;
+                    border-radius: 10px;
+                    transition: var(--transition);
+                }
+                position: relative;;
+                .vidBox{
+                    position: absolute;
+                    bottom: 10px;
+                    left: 10px;
+                    padding: 5px 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: .5rem;
+                    backdrop-filter: blur(33px);
+                    background: rgba(0, 0, 0, 0.2);
+                    border-radius: 30px;
+                    .icon{
+                        color: var(--textColor);
+                        font-size: .9rem;
+                    }
+                    h3{
+                        font-size: .9rem;
+                        font-weight: 600;
+                        color: var(--textColor);
+                    }
+                }
+            }
+            .bottom{
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                flex-direction: column;
+                gap: .5rem;
+                h3{
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    color: var(--textColor);
+                }
+                h2{
+                    font-size: 1.2rem;
+                    font-weight: 700;
+                    color: var(--secColor);
+                }
+                p{
+                    font-size: .9rem;
+                    font-weight: 500;
+                    color: var(--secColorDark);
+                }
+            }
+        }
+        .episode:first-child{
+            margin-left: 5%;
+        }
+        .episode:last-child{
+            margin-right: 5%;
+        }
+    }
+}
+
 /* For Tablets */
 @media screen and (max-width:999px) {
     #Series{
@@ -131,6 +241,26 @@
                         font-size: 1.1rem;
                     }
                 }
+            }
+        }
+    }
+
+    .SeriesDetails{
+        .banner{
+            gap: 2rem;
+            .right{
+                >h3{
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    flex-direction: column;
+                    
+                }
+            }
+        }
+        .episodes{
+            .episode{
+                width: calc(100% / 2.5);
             }
         }
     }
@@ -169,6 +299,55 @@
                     width: 7px;
                     height: 7px;
                 }
+            }
+        }
+    }
+    .SeriesDetails{
+        .banner{
+            .right{
+                select{
+                    margin-top: 1rem;
+                    font-size: .9rem;
+                    padding: 5px 10px;
+                }
+            }
+        }
+        .episodes{
+            padding: 5%;
+            gap: 1rem;
+            overflow: auto;
+            scroll-snap-type: x mandatory;
+            .episode{
+                scroll-snap-align: center;
+                width: 100%;
+                padding: 0;
+                .top{
+                    .vidBox{
+                        .icon{
+                            font-size: .8rem;
+                        }
+                        h3{
+                            font-size: .8rem;
+                        }
+                    }
+                }
+                .bottom{
+                    h3{
+                        font-size: .9rem;
+                    }
+                    h2{
+                        font-size: 1rem;
+                    }
+                    p{
+                        font-size: .7rem;
+                    }
+                }
+            }
+            .episode:first-child{
+                margin-left: 0;
+            }
+            .episode:last-child{
+                margin-right: 0;
             }
         }
     }

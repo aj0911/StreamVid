@@ -2,16 +2,15 @@ import React, { useEffect,  useState } from 'react'
 import './Movies.css'
 import { useLocation } from 'react-router-dom'
 import ReactStars from 'react-stars'
-import { FaCross, FaEye } from 'react-icons/fa'
+import { FaEye } from 'react-icons/fa'
 import Btns from '../../Helper/Btns/Btns'
 import Title from '../../Helper/Title/Title'
-import { MdClose, MdOutlineClose } from 'react-icons/md'
+import { MdOutlineClose } from 'react-icons/md'
 
 const MovieDetails = ({active,setActive}) => {
     const {state} = useLocation();
     const [cast,setCast] = useState('');
     const [crew,setCrew] = useState('');
-    console.log(state);
 
     // Rendering
     useEffect(()=>{
@@ -37,7 +36,7 @@ const MovieDetails = ({active,setActive}) => {
             <div className="right">
                 <h3>{state.title}</h3>
                 <div className="row">
-                    <ReactStars count={5} value={Math.round((state.vote_average*5))/10} edit={false} color1='#FEF5E9' color2='#6C52EE' size={window.innerWidth<600?15:30} half={true}/>
+                    <ReactStars count={5} value={Math.round((state.vote_average*5))/10} edit={false} color1='#FEF5E9' color2='#6C52EE' size={window.innerWidth<600?15:20} half={true}/>
                     <h3>{Math.round((state.vote_average*10))/10}</h3>
                     <div className="dot"></div>
                     <FaEye className='icon'/>
