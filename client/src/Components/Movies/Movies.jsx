@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import {  FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 import ListView from '../../Helper/ListView/ListView';
 import { useNavigate } from 'react-router-dom';
+import {TYPE} from '../../Helper/Helper'
 
 const Movies = () => {
 
@@ -254,13 +255,13 @@ const Movies = () => {
         <FaArrowLeft className='iconLeft' onClick={slidePrev}/>
         <FaArrowRight  className='iconRight' onClick={slideNext}/>
       </div>
-      <ListView title={'Korean Movies'} data={koreanMovies}/>
-      <ListView title={'Featured Movies'} data={featuredMovies}/>
-      <ListView title={'Bollywood Action Movies'} data={actionMovies}/>
-      <ListView title={'Best In Bollywood Romance'} data={romanticMovies} largeSize={true}/>
-      <ListView title={'Comedy Movies'} data={comedyMovies}/>
-      <ListView title={'Blockbuster Movies'} data={blockbusterMovies}/>
-      <ListView title={'South Indian Blockbusters'} data={southIndianMovies}  recentlyAdded={true}/>
+      <ListView title={'Korean Movies'} data={koreanMovies} type={TYPE.MOVIE}/>
+      <ListView title={'Featured Movies'} data={featuredMovies} type={TYPE.MOVIE}/>
+      <ListView title={'Bollywood Action Movies'} data={actionMovies} type={TYPE.MOVIE}/>
+      <ListView title={'Best In Bollywood Romance'} data={romanticMovies} largeSize={true} type={TYPE.MOVIE}/>
+      <ListView title={'Comedy Movies'} data={comedyMovies} type={TYPE.MOVIE}/>
+      <ListView title={'Blockbuster Movies'} data={blockbusterMovies} type={TYPE.MOVIE}/>
+      <ListView title={'South Indian Blockbusters'} data={southIndianMovies} type={TYPE.MOVIE}/>
     </div>
   )
 }

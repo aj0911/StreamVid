@@ -12,6 +12,7 @@ import MovieDetails from './Components/Movies/MovieDetails'
 import SeriesDetails from './Components/Series/SeriesDetails'
 import SeriesPlayer from './Components/Series/SeriesPlayer'
 import PersonDetails from './Components/Home/PersonDetails'
+import ViewAll from './Helper/ViewAll/ViewAll'
 
 const App = () => {
   const [active,setActive] = useState(false);
@@ -27,6 +28,7 @@ const App = () => {
         <Route exact path='/Movies/:id' element={<MovieDetails active={active} setActive={setActive}/>}/>
         <Route exact path='/Series' element={<Series/>}/>
         <Route exact path='/Series/player/:id' element={<SeriesPlayer/>}/>
+        <Route exact path='/View/:title' element={<ViewAll/>}/>
         <Route exact path='/Person/:id' element={<PersonDetails/>}/>
         <Route exact path='/Series/:id' element={<SeriesDetails active={active} setActive={setActive}/>} />
       </Routes>

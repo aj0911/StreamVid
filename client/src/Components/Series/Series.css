@@ -292,6 +292,7 @@
             }
         }
         .right{
+            .loader{height: auto;}
             width: calc(30% - .5rem);
             overflow-x: hidden;
             overflow-y: scroll;

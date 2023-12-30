@@ -1,0 +1,166 @@
+#ViewAll{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2rem;
+    width: 100%;
+    padding: 100px 5% 20px 5%;
+    flex-direction: column;
+    >h3{
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--secColor);
+        text-transform: uppercase;
+    }
+    .list{
+        .loader{
+            height: auto;
+        }
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding: 20px 0;
+        .item{
+            width: calc(25% - .75rem);
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+            img{
+                width: 100%;
+            }
+            .content{
+                position:absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column-reverse;
+                gap: .5rem;
+                opacity: 0;
+                padding: 20px;
+                h3{
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--textColor);
+                    text-align: center;
+                    transition: var(--transition);
+                }
+                h3:hover{
+                    color: var(--secColor);
+                }
+                .icon:hover{
+                    color: var(--secColor);
+                }
+                .icon{
+                    transition: var(--transition);
+                    color: var(--textColor);
+                    font-size: 3rem;
+                }
+            }
+            z-index: 1;
+        }
+        .item:hover{
+            .content{
+                opacity: 1;
+                animation: animateText .5s ease-in;
+            }
+        }
+        .item::before{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            content: '';
+            z-index: 0;
+            opacity: 0;
+        }
+        .item:hover::before{
+            opacity: .7;
+        }
+    }
+}
+
+
+/* For Tablets */
+@media screen and (max-width:999px) {
+    #ViewAll{
+        .list{
+            flex-direction: column;
+            .item{
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 1rem;
+                padding: 0;
+                img{
+                    width: calc(40% - .5rem);
+                }
+                .content{
+                    position: relative;
+                    width: calc(60% - .5rem);
+                    opacity: 1;
+                    display: flex;
+                    justify-content:space-between;
+                    gap: 1rem;
+                    align-items: center;
+                    flex-direction: row;
+                    h3{
+                        font-size: 1.1rem;
+                        text-align: start;
+                    }
+                    .icon{
+                        font-size: 1.3rem;
+                    }
+                }
+            }
+            .item:hover::before{
+                opacity: 0;
+            }
+        }
+    }    
+}
+/* For Mobiles */
+@media screen and (max-width:599px) {
+    #ViewAll{
+        padding: 70px 5% 20px 5%;
+        gap: .5rem;
+        >h3{
+            font-size: 1.5rem;
+        }
+        .list{
+            .item{
+                gap: .5rem;
+                img{
+                    width: calc(35% - .25rem);
+                    min-height: 100px;
+                }
+                .content{
+                    width: calc(65% - .25rem);
+                    gap: .2rem;
+                    padding: 10px;
+                    h3{
+                        font-size: 1rem;
+                        width: calc(70% - .1rem);
+                    }
+                    .icon{
+                        font-size: 1rem;
+                        width: calc(30% - .1rem);
+                    }
+                }
+            }
+            
+        }
+    }
+}

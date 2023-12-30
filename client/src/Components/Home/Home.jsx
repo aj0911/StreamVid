@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import {  FaArrowLeft, FaArrowRight, FaStar } from 'react-icons/fa'
 import Loader from '../../Helper/Loader/Loader'
 import Title from '../../Helper/Title/Title'
-import { getMonth } from '../../Helper/Helper'
+import { TYPE, getMonth } from '../../Helper/Helper'
 import Btns from '../../Helper/Btns/Btns'
 import { useNavigate } from 'react-router-dom'
 import ListView from '../../Helper/ListView/ListView';
@@ -263,10 +263,10 @@ const Home = ({active,setActive}) => {
             <FaArrowLeft className='sliderPrev' onClick={slidePrev}/>
             <FaArrowRight className='sliderNext' onClick={slideNext}/>
         </div>
-        <ListView title={'Trending Movies'} data={nowMovies}/>
-        <ListView title={'New Release'} data={newMovies}/>
+        <ListView title={'Trending Movies'} data={nowMovies} type={TYPE.MOVIE}/>
+        <ListView title={'New Release'} data={newMovies} type={TYPE.MOVIE}/>
         <div className="TrendingMovies">
-            <Title title={'Top 10 at Streamvid'} viewMore={false}/>
+            <Title title={'Top 10 at Streamvid'} viewMore={false} type={TYPE.MOVIE}/>
             <div className="moviesList">
                 {
                     (top10Movies.length>0)?
@@ -279,14 +279,14 @@ const Home = ({active,setActive}) => {
                 }
             </div>
         </div>
-        <ListView title={'New K-Dramas'} data={trendingKdrama}/>
-        <ListView title={'Latest Series'} data={trendingSeries} largeSize={true}/>
+        <ListView title={'New K-Dramas'} data={trendingKdrama} type={TYPE.SERIES}/>
+        <ListView title={'Latest Series'} data={trendingSeries} largeSize={true} type={TYPE.SERIES}/>
         <div className="upcomingMovies">
-            <Title title={'Upcoming Hindi Movies'}/>
+            <Title title={'Upcoming Hindi Movies'} viewMore={false} type={TYPE.MOVIE} />
             <div className="upcomingList">
                 {
                     (upcomingMovies.length>=0)?
-                    upcomingMovies.slice(0,10).map((movie,index)=>(
+                    upcomingMovies.map((movie,index)=>(
                         <div key={index} className="upcomingMovie">
                             <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt="" />
                             <div className="content">
@@ -302,7 +302,7 @@ const Home = ({active,setActive}) => {
             </div>
         </div>
         <div className="persons">
-            <Title title={'Top Artists'}/>
+            <Title title={'Top Artists'} data={persons} type={TYPE.PERSON}/>
             <div className="personList">
                 {
                     (persons.length>0)?

@@ -4,11 +4,11 @@ import Title from '../Title/Title'
 import { FaRegPlayCircle } from 'react-icons/fa'
 import {useNavigate} from 'react-router-dom'
 
-const ListView = ({title,viewMore = true,data,count=10,largeSize=false}) => {
+const ListView = ({title,viewMore = true,data,count=10,largeSize=false,type}) => {
     const navigate = useNavigate();
   return (
     <div className="ListView">
-        <Title title={title} viewMore={viewMore}/>
+        <Title title={title} type={type} viewMore={viewMore} data={data}/>
         <div className="list">
             {
                 (data.length>0)?

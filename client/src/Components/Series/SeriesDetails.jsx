@@ -54,7 +54,6 @@ const SeriesDetails = ({active,setActive}) => {
               setSeasonFiles((prev)=>{
                 return [...prev,res.data];
               });
-              console.log(res.data);
             }).catch((err)=>{
                 toast.warn(err.message)
             })
@@ -66,7 +65,6 @@ const SeriesDetails = ({active,setActive}) => {
           setLoading(false);
       })
     }
-    
     // Rendering
     useEffect(()=>{
       loadSeasons();
@@ -118,7 +116,7 @@ const SeriesDetails = ({active,setActive}) => {
         </div>
         {
           loading?<Loader size={100}/>:
-          <div className="episodes">
+          <div  className="episodes">
             {
               (seasonFiles.length>0)?
               seasonFiles.sort((a,b)=>{

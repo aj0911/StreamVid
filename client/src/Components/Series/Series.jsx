@@ -5,6 +5,7 @@ import api from 'axios';
 import { toast } from 'react-toastify';
 import Loader from '../../Helper/Loader/Loader';
 import Btns from '../../Helper/Btns/Btns'
+import {TYPE} from '../../Helper/Helper'
 
 const Series = () => {
   // States
@@ -249,13 +250,13 @@ const Series = () => {
             }
         </div>
       </div>
-      <ListView title={'Featured TV Series'} data={tvSeries}/>
-      <ListView title={'Top Hindi Serials'} data={hindiSeries}/>
-      <ListView title={'Romantic Kdramas'} data={romanticKdramas}/>
-      <ListView title={'Popular Turkish Dramas'} data={turkishDramas} largeSize={true}/>
-      <ListView title={'Best SouthIndian Shows'} data={southIndianShows} />
-      <ListView title={'TV Sci-Fi and Fantasy'} data={scifiSeries} />
-      <ListView title={'Kdramas for action lovers'} data={actionkdramas} />
+      <ListView title={'Featured TV Series'} data={tvSeries} type={TYPE.SERIES}/>
+      <ListView title={'Top Hindi Serials'} data={hindiSeries} type={TYPE.SERIES}/>
+      <ListView title={'Romantic Kdramas'} data={romanticKdramas} type={TYPE.SERIES}/>
+      <ListView title={'Popular Turkish Dramas'} data={turkishDramas} largeSize={true} type={TYPE.SERIES}/>
+      <ListView title={'Best SouthIndian Shows'} data={southIndianShows} type={TYPE.SERIES} />
+      <ListView title={'TV Sci-Fi and Fantasy'} data={scifiSeries} type={TYPE.SERIES} />
+      <ListView title={'Kdramas for action lovers'} data={actionkdramas} type={TYPE.SERIES} />
     </div>
   )
 }

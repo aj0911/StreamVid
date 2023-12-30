@@ -4,6 +4,7 @@ import { useLocation, useParams } from 'react-router-dom'
 import ListView from '../../Helper/ListView/ListView';
 import Loader from '../../Helper/Loader/Loader';
 import api from 'axios'
+import {TYPE} from '../../Helper/Helper'
 import { toast } from 'react-toastify';
 
 const PersonDetails = () => {
@@ -16,7 +17,6 @@ const PersonDetails = () => {
         setLoading(true);
         api.get(`https://api.themoviedb.org/3/person/${id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
             setState(res.data);
-            console.log(res.data)
         }).catch((err)=>{
             toast.warn(err.message)
         }).finally(()=>{
@@ -64,7 +64,7 @@ const PersonDetails = () => {
             {
                 (state.credits)?
                 state.credits.cast.length>0?
-                <ListView title={'Best Acting'} data={state.credits.cast}/>:'':''
+                <ListView type={TYPE.MOVIE} title={'Best Acting'} data={state.credits.cast}/>:'':''
             }
         </div>
     </div>
