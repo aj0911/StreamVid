@@ -105,7 +105,7 @@ const SeriesDetails = ({active,setActive}) => {
                     <h3>{state.number_of_seasons} Seasons</h3>
                 </div>
                 <p>{seasonData.overview }</p>
-                <Btns title1='Start Watching' btn1func={()=>navigate(`/Series/player/${seasonFiles[0].id}`,{state:{index:0,backdrop_path:state.backdrop_path,video:state.videos.results[0].key,seasonFiles,name:state.name,vote_average:state.vote_average,genre:state.genre}})}/>
+                <Btns title1='Start Watching' btn1func={()=>navigate(`/Series/player/${seasonFiles[0].id}`,{state:{index:0,backdrop_path:state.backdrop_path,video:state.videos.results[0]?.key,seasonFiles,name:state.name,vote_average:state.vote_average,genre:state.genre}})}/>
                 <select value={seasonData.id} onChange={(e)=>handleSelect(e.target.value)}>
                   {
                     state.seasons.map((season,index)=>(
@@ -151,10 +151,10 @@ const SeriesDetails = ({active,setActive}) => {
             <Title title={'Cast & Crew'} viewMore={false}/>
             <div className="peopleList">
                 {
-                    state.credits.cast.map(({name,character,profile_path},index)=>{
+                    state.credits.cast.map(({name,id,character,profile_path},index)=>{
                         if(profile_path===null)return;
                         return(
-                        <div className="people" key={index}>
+                        <div onClick={()=>navigate(`/Person/${id}`)} className="people" key={index}>
                             <img src={`https://image.tmdb.org/t/p/w500${profile_path}`} alt="" />
                             <div className="content">
                                 <h3>{name}</h3>
@@ -164,10 +164,10 @@ const SeriesDetails = ({active,setActive}) => {
                     )})
                 }
                 {
-                    state.credits.crew.map(({name,job,profile_path},index)=>{
+                    state.credits.crew.map(({name,job,profile_path,id},index)=>{
                         if(profile_path===null)return;
                         return(
-                        <div className="people" key={index}>
+                        <div onClick={()=>navigate(`/Person/${id}`)} className="people" key={index}>
                             <img src={`https://image.tmdb.org/t/p/w500${profile_path}`} alt="" />
                             <div className="content">
                                 <h3>{name}</h3>

@@ -1,33 +1,52 @@
 import React, { useEffect,  useState } from 'react'
 import './Movies.css'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import ReactStars from 'react-stars'
 import { FaEye } from 'react-icons/fa'
 import Btns from '../../Helper/Btns/Btns'
 import Title from '../../Helper/Title/Title'
 import { MdOutlineClose } from 'react-icons/md'
+import { toast } from 'react-toastify'
+import api from 'axios'
+import Loader from '../../Helper/Loader/Loader'
 
 const MovieDetails = ({active,setActive}) => {
-    const {state} = useLocation();
     const [cast,setCast] = useState('');
     const [crew,setCrew] = useState('');
+    const [loading,setLoading] = useState(false);
+    const [state,setState] = useState('');
+    const {id} = useParams();
+    const navigate = useNavigate();
 
+    // Functions 
+    const getMovie = ()=>{
+        setLoading(true);
+        api.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
+            setState(res.data);
+            setCast(prev=>{
+                res.data.credits?.cast.slice(0,5).forEach(({name},index)=>{
+                    prev += name+`${(index===4)?'':', '}`;
+                })
+                return prev;
+            })
+            setCrew(prev=>{
+                res.data.credits?.crew.slice(0,5).forEach(({name},index)=>{
+                    prev += name+`${(index===4)?'':', '}`;
+                })
+                return prev;
+            })
+        }).catch((err)=>{
+            toast.warn(err.message)
+        }).finally(()=>{
+            setLoading(false);
+        })
+    }
     // Rendering
     useEffect(()=>{
-        setCast(prev=>{
-            state.credits.cast.slice(0,5).forEach(({name},index)=>{
-                prev += name+`${(index===4)?'':', '}`;
-            })
-            return prev;
-        })
-        setCrew(prev=>{
-            state.credits.crew.slice(0,5).forEach(({name},index)=>{
-                prev += name+`${(index===4)?'':', '}`;
-            })
-            return prev;
-        })
+        getMovie();
     },[])
   return (
+    loading && !state?<Loader size={100}/>:
     <div id="MovieDetails" className={`${active?'active':''}`}>
         <div className="banner" style={{backgroundImage:`url("https://image.tmdb.org/t/p/original${state.backdrop_path}")`}}>
             <div className="left">
@@ -49,7 +68,7 @@ const MovieDetails = ({active,setActive}) => {
                 </div>
                 <div className="row">
                     {
-                        state.genres.map((genre,index)=>(
+                        state.genres?.map((genre,index)=>(
                             <>
                                 <h3>{genre.name}</h3>
                                 {
@@ -70,10 +89,10 @@ const MovieDetails = ({active,setActive}) => {
             <Title title={'Cast & Crew'} viewMore={false}/>
             <div className="peopleList">
                 {
-                    state.credits.cast.slice(0,15).map(({name,character,profile_path},index)=>{
+                    state.credits?.cast.slice(0,15).map(({name,id,character,profile_path},index)=>{
                         if(profile_path===null)return;
                         return(
-                        <div className="people" key={index}>
+                        <div onClick={()=>navigate(`/Person/${id}`)} className="people" key={index}>
                             <img src={`https://image.tmdb.org/t/p/w500${profile_path}`} alt="" />
                             <div className="content">
                                 <h3>{name}</h3>
@@ -83,10 +102,10 @@ const MovieDetails = ({active,setActive}) => {
                     )})
                 }
                 {
-                    state.credits.crew.slice(0,5).map(({name,job,profile_path},index)=>{
+                    state.credits?.crew.slice(0,5).map(({name,id,job,profile_path},index)=>{
                         if(profile_path===null)return;
                         return(
-                        <div className="people" key={index}>
+                        <div onClick={()=>navigate(`/Person/${id}`)} className="people" key={index}>
                             <img src={`https://image.tmdb.org/t/p/w500${profile_path}`} alt="" />
                             <div className="content">
                                 <h3>{name}</h3>
@@ -100,7 +119,7 @@ const MovieDetails = ({active,setActive}) => {
         {
             !active?'':
             <div className={`videoContainer`}>
-                <iframe className='videoPlayer' src={`https://www.youtube.com/embed/${(state.videos.results[0])?state.videos.results[0].key:''}?si=zbqzYY5FD71dS5zH`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe className='videoPlayer' src={`https://www.youtube.com/embed/${(state.videos.results[0])?state.videos.results[0].key:''}?si=zbqzYY5FD71dS5zH`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                 <MdOutlineClose onClick={()=>setActive(false)} className='icon'/>
             </div>
         }

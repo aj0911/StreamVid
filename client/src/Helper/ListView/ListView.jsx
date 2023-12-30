@@ -12,13 +12,15 @@ const ListView = ({title,viewMore = true,data,count=10,largeSize=false}) => {
         <div className="list">
             {
                 (data.length>0)?
-                data.slice(0,count).map((item,index)=>(
+                data.slice(0,count).map((item,index)=>{
+                    if(item.poster_path===null)return;
+                    return(
                     <div onClick={()=>{if(window.innerWidth<999)navigate(`/${(item.seasons)?'Series':'Movies'}/${item.id}`,{state:item})}} key={index} className={`item ${(largeSize)?'largeSize':''}`}>
                         <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt="" />
                         <FaRegPlayCircle onClick={()=>{navigate(`/${(item.seasons)?'Series':'Movies'}/${item.id}`,{state:item})}} className='icon'/>
                         <button>Add to My List</button>
                     </div>
-                )):''
+                )}):''
             }
         </div>
     </div>

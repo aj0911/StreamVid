@@ -9,9 +9,10 @@ import { getMonth } from '../../Helper/Helper'
 import Btns from '../../Helper/Btns/Btns'
 import { useNavigate } from 'react-router-dom'
 import ListView from '../../Helper/ListView/ListView';
+import { MdOutlineClose } from 'react-icons/md'
 
 
-const Home = () => {
+const Home = ({active,setActive}) => {
     // States
     const [trendingMovies,setTrendingMovies] = useState([]);
     const [newMovies,setNewMovies] = useState([]);
@@ -21,6 +22,7 @@ const Home = () => {
     const [trendingSeries,setTrendingSeries] = useState([]);
     const [upcomingMovies,setUpcomingMovies] = useState([]);
     const [persons,setPersons] = useState([]);
+    const [videoState,setVideoState] = useState([]);
     const items = useRef();
     const [loading,setLoading] = useState(false);
     const [touchStartX,setTouchStartX] = useState({x:0,y:0});
@@ -151,6 +153,7 @@ const Home = () => {
                         if(res.data.poster_path===null)return [...prev];
                         return [...prev,res.data];
                     });
+                    
                 }).catch((err)=>{
                     toast.warn(err.message)
                 })
@@ -225,7 +228,7 @@ const Home = () => {
 
   return (
     (loading)?<Loader size={100}/>:
-    <div className="home">
+    <div className={`home ${(active)?'active':''}`}>
         <div className="hero">
             <div className="movies" ref={items}>
                 {
@@ -291,7 +294,7 @@ const Home = () => {
                                 <h5>New Movie</h5>
                             </div>
                             <p>Streaming on <span>{getMonth((new Date(movie.release_date)).getMonth())} {(new Date(movie.release_date)).getDay()}, {(new Date(movie.release_date)).getFullYear()}</span></p>
-                            <button>Watch Trailer</button>
+                            <button onClick={()=>{setVideoState(movie);setActive(true)}}>Watch Trailer</button>
                         </div>
                     ))
                     :''
@@ -304,7 +307,7 @@ const Home = () => {
                 {
                     (persons.length>0)?
                     persons.slice(0,10).map((person,index)=>(
-                        <div key={index} className="person">
+                        <div onClick={()=>navigate(`/Person/${person.id}`,{state:person})} key={index} className="person">
                             <img src={`https://image.tmdb.org/t/p/w500/${person.images.profiles[0].file_path}`} alt="" />
                             <h3>{person.name}</h3>
                         </div>
@@ -312,6 +315,13 @@ const Home = () => {
                 }
             </div>
         </div>
+        {
+            !active?'':
+            <div className={`videoContainer`}>
+                <iframe className='videoPlayer' src={`https://www.youtube.com/embed/${(videoState.videos.results[0])?videoState.videos.results[0].key:''}?si=zbqzYY5FD71dS5zH`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                <MdOutlineClose onClick={()=>setActive(false)} className='icon'/>
+            </div>
+        }
     </div>
   )
 }
