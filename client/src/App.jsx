@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './index.css'
 import Header from './Components/Header/Header'
 import Footer from './Components/Footer/Footer'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import Home from './Components/Home/Home'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,10 +13,19 @@ import SeriesDetails from './Components/Series/SeriesDetails'
 import SeriesPlayer from './Components/Series/SeriesPlayer'
 import PersonDetails from './Components/Home/PersonDetails'
 import ViewAll from './Helper/ViewAll/ViewAll'
+import Authentication from './Components/Authentication/Authentication'
+import { useSelector } from 'react-redux'
 
 const App = () => {
   const [active,setActive] = useState(false);
+  const navigate = useNavigate();
+  const auth = useSelector(state=>state.auth);
+
   useEffect(()=>{
+    if(auth.isAuth===false){
+      setActive(true);
+      navigate('/Auth');
+    }
     setActive(false);
   },[])
   return (
@@ -25,6 +34,7 @@ const App = () => {
       <Routes>
         <Route exact path='/' element={<Home active={active} setActive={setActive}/>}/>
         <Route exact path='/Movies' element={<Movies/>}/>
+        <Route exact path='/Auth' element={<Authentication/>}/>
         <Route exact path='/Movies/:id' element={<MovieDetails active={active} setActive={setActive}/>}/>
         <Route exact path='/Series' element={<Series/>}/>
         <Route exact path='/Series/player/:id' element={<SeriesPlayer/>}/>

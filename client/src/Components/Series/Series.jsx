@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import Loader from '../../Helper/Loader/Loader';
 import Btns from '../../Helper/Btns/Btns'
 import {TYPE} from '../../Helper/Helper'
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Series = () => {
   // States
@@ -22,6 +24,8 @@ const Series = () => {
   const [touchStartX,setTouchStartX] = useState({x:0,y:0});
   const [touchEndX,setTouchEndX] = useState({x:0,y:0});
   const trendingItem = 8;
+  const auth = useSelector(state=>state.auth);
+  const navigate = useNavigate();
 
   // Functions
   const loadTrendingSeries = ()=>{
@@ -210,6 +214,7 @@ const Series = () => {
 
   // Rendering
   useEffect(()=>{
+    if(auth.isAuth===false)navigate('/Auth');
     loadTrendingSeries();
     loadLatestTvSeries();
     loadHindiSeries();

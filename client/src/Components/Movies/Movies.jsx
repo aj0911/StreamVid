@@ -7,6 +7,7 @@ import {  FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 import ListView from '../../Helper/ListView/ListView';
 import { useNavigate } from 'react-router-dom';
 import {TYPE} from '../../Helper/Helper'
+import { useSelector } from 'react-redux';
 
 const Movies = () => {
 
@@ -25,6 +26,8 @@ const Movies = () => {
   const [touchStartX,setTouchStartX] = useState({x:0,y:0});
   const [touchEndX,setTouchEndX] = useState({x:0,y:0});
   const navigate = useNavigate();
+  const auth = useSelector(state=>state.auth);
+
 
   // functions
   const loadTrendingMovies = ()=>{
@@ -219,6 +222,7 @@ const Movies = () => {
 
   // Rendering
   useEffect(()=>{
+    if(auth.isAuth===false)navigate('/Auth');
     loadTrendingMovies();
     loadKoreanMovies();
     loadFeaturedMovies();

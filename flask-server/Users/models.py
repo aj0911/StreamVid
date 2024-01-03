@@ -17,8 +17,10 @@ class User:
             }
             if db.users.find_one({'email':user['email']}):
                 return return_json('User already exists.',400,user);
+            if body.get('password') != body.get('confirmPassword'):
+                return return_json('Password and Confirm Password must have same values',401,None);
             if db.users.insert_one(user):
-                return return_json('Register successfull',200,user);
+                return return_json('Register successfull',200,{k: user[k] for k in set(list(user.keys())) - set(['password'])});
         except Exception as ex:
             return_json(ex.message,500,None);
 
@@ -27,7 +29,7 @@ class User:
             body = json.loads(request.data);
             user = db.users.find_one({'email':body.get('email')});
             if user and pbkdf2_sha256.verify(body.get('password'),user['password']):
-                return return_json('Login successfull',200,user);
+                return return_json('Login successfull',200,{k: user[k] for k in set(list(user.keys())) - set(['password'])});
             return return_json('Invalid login credentials',400,None);
         except Exception as ex:
             return_json(ex,500,None);

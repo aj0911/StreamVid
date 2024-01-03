@@ -2,21 +2,24 @@ import React, { useRef } from 'react'
 import './Header.css'
 import { FaFilm, FaHome, FaSearch, FaTv, FaUser } from 'react-icons/fa'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const Header = () => {
 
     const navigate = useNavigate();
     const nav = useRef();
+    const auth = useSelector(state=>state.auth)
     document.addEventListener('scroll',()=>{
         if(window.scrollY>20){
-            nav.current.classList.add('sticky')
+            nav.current?.classList.add('sticky')
         }
         if(window.scrollY<20){
-            nav.current.classList.remove('sticky')
+            nav.current?.classList.remove('sticky')
         }
     })
 
   return (
+    auth.isAuth?
     <header ref={nav}>
         <div className="left">
             <div className="logo">
@@ -37,7 +40,7 @@ const Header = () => {
             <NavLink to={'/Profile'}><FaUser className='profile'/></NavLink>
             <button onClick={()=>navigate('/Subscription')}>Subscrible</button>
         </div>
-    </header>
+    </header>:''
   )
 }
 

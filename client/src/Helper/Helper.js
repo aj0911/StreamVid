@@ -12,3 +12,9 @@ export const TYPE = {
   SERIES:'Series',
   PERSON:'Person'
 }
+
+export const authItems = {
+  ENTRY:'ENTRY',
+  SIGNIN:'SIGNIN',
+  SIGNUP:'SIGNUP'
+}

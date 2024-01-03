@@ -10,6 +10,7 @@ import Btns from '../../Helper/Btns/Btns'
 import { useNavigate } from 'react-router-dom'
 import ListView from '../../Helper/ListView/ListView';
 import { MdOutlineClose } from 'react-icons/md'
+import { useSelector } from 'react-redux'
 
 
 const Home = ({active,setActive}) => {
@@ -28,6 +29,8 @@ const Home = ({active,setActive}) => {
     const [touchStartX,setTouchStartX] = useState({x:0,y:0});
     const [touchEndX,setTouchEndX] = useState({x:0,y:0});
     const navigate  = useNavigate();
+    const auth = useSelector(state=>state.auth);
+
 
     // Functions
     const loadTrendingMovies = ()=>{
@@ -212,6 +215,7 @@ const Home = ({active,setActive}) => {
     }
     // Rendering
     useEffect(()=>{
+        if(auth.isAuth===false)navigate('/Auth');
         loadTrendingMovies();
         loadNowMovies();
         loadNewMovies();
