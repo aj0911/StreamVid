@@ -38,7 +38,12 @@ const Header = () => {
                 <input type="text" placeholder='Find movies,TV shows, Series,...' />
             </div>
             <NavLink to={'/Profile'}><FaUser className='profile'/></NavLink>
-            <button onClick={()=>navigate('/Subscription')}>Subscrible</button>
+            
+                <button onClick={()=>navigate('/Subscription')}>
+                {
+                    (auth.user?.subscription)?auth.user?.subscription.name.split(' ')[0]:'Subscribe'  
+                }
+                </button>
         </div>
     </header>:''
   )

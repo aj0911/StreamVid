@@ -15,6 +15,8 @@ import PersonDetails from './Components/Home/PersonDetails'
 import ViewAll from './Helper/ViewAll/ViewAll'
 import Authentication from './Components/Authentication/Authentication'
 import { useSelector } from 'react-redux'
+import Subscribe from './Components/Subscription/Subscribe'
+import Payment from './Components/Subscription/Payment'
 
 const App = () => {
   const [active,setActive] = useState(false);
@@ -34,12 +36,14 @@ const App = () => {
       <Routes>
         <Route exact path='/' element={<Home active={active} setActive={setActive}/>}/>
         <Route exact path='/Movies' element={<Movies/>}/>
-        <Route exact path='/Auth' element={<Authentication/>}/>
+        <Route exact path='/Auth' element={<Authentication setActive={setActive}/>}/>}/>
         <Route exact path='/Movies/:id' element={<MovieDetails active={active} setActive={setActive}/>}/>
         <Route exact path='/Series' element={<Series/>}/>
         <Route exact path='/Series/player/:id' element={<SeriesPlayer/>}/>
         <Route exact path='/View/:title' element={<ViewAll/>}/>
         <Route exact path='/Person/:id' element={<PersonDetails/>}/>
+        <Route exact path='/Subscription' element={<Subscribe/>}/>
+        <Route exact path='/Payment' element={<Payment/>}/>
         <Route exact path='/Series/:id' element={<SeriesDetails active={active} setActive={setActive}/>} />
       </Routes>
       <Footer/>

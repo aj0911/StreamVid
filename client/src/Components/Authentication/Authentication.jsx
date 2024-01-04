@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {login, logout} from '../../Reducers/Auth'
 
-const Authentication = () => {
+const Authentication = ({setActive}) => {
   // States
   const [item,setItem] = useState(authItems.ENTRY);
   const [data,setData] = useState({
@@ -34,6 +34,7 @@ const Authentication = () => {
         toast.success(res.data.message);
         console.log(res.data);
         dispatch(login(res.data.data));
+        setActive(false);
         navigate('/');
       }
       else toast.warn(res.data.message);
@@ -55,6 +56,7 @@ const Authentication = () => {
       if(res.data.status === 200){
         toast.success(res.data.message);
         dispatch(login(res.data.data));
+        setActive(false);
         navigate('/');
       }
       else toast.warn(res.data.message)
@@ -67,7 +69,11 @@ const Authentication = () => {
 
   // Rendering
   useEffect(()=>{
-    if(auth.isAuth)navigate('/');
+    if(auth.isAuth){
+      setActive(false);
+      navigate('/');
+    }
+    setActive(true)
   },[])
 
   return (

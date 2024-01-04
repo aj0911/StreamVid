@@ -215,7 +215,10 @@ const Home = ({active,setActive}) => {
     }
     // Rendering
     useEffect(()=>{
-        if(auth.isAuth===false)navigate('/Auth');
+        if(auth.isAuth===false){
+            setActive(true);
+            navigate('/Auth')
+        }
         loadTrendingMovies();
         loadNowMovies();
         loadNewMovies();

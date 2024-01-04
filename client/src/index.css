@@ -8,6 +8,7 @@
     --secColorDark:#4D5C7C;
     --secColorLight:#BABFC1;
     --transition: all .4s;
+    --hoverColor:#181B31;
 }
 
 ::-webkit-scrollbar{

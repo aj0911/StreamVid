@@ -33,3 +33,14 @@ class User:
             return return_json('Invalid login credentials',400,None);
         except Exception as ex:
             return_json(ex,500,None);
+
+    def update_subscription(self):
+        try:
+            body = json.loads(request.data);
+            user = db.users.find_one({'email':body.get('email')});
+            if user:
+                result = db.users.update_one({'_id': body.get('_id')}, {"$set": {'subscription': body.get('subscription')}})  
+                return return_json('Membership created successfully',200,body);
+            return return_json('Invalid User',400,None);
+        except Exception as ex:
+            return_json(ex,500,None);

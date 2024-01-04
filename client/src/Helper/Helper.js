@@ -7,6 +7,8 @@ export const convert0Number = (num)=>{
   }
 
 
+export const urlPrefix = `http://127.0.0.1:5000/`;
+
 export const TYPE = {
   MOVIE:'Movies',
   SERIES:'Series',
@@ -18,3 +20,36 @@ export const authItems = {
   SIGNIN:'SIGNIN',
   SIGNUP:'SIGNUP'
 }
+
+export const subscriptions = [
+  {
+    name:'FREE PLAN',
+    amountString:'Free.',
+    features:[
+      'Get unlimited access to thousands of shows and movies with limited ads',
+      `Watch on your favorite devices`,
+      `Switch plans or cancel anytime`,
+      `Download from thousands of titles to watch offline`
+    ],
+  },
+  {
+    name:'DIAMOND PLAN',
+    amountString:'₹900 per Month.',
+    features:[
+      'Get unlimited access to thousands of shows and movies with limited ads',
+      `Watch on your favorite devices`,
+      `Switch plans or cancel anytime`,
+      `Download from thousands of titles to watch offline`
+    ]
+  },
+  {
+    name:'PLATINUM PLAN',
+    amountString:'₹3,391 every 2 Months.',
+    features:[
+      'Get unlimited access to thousands of shows and movies with limited ads',
+      `Watch on your favorite devices`,
+      `Switch plans or cancel anytime`,
+      `Download from thousands of titles to watch offline`
+    ]
+  },
+]
