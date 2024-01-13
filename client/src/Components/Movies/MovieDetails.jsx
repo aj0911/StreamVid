@@ -82,7 +82,7 @@ const MovieDetails = ({active,setActive}) => {
                 <p>{state.overview}</p>
                 <p><span>Cast: </span>{cast}</p>
                 <p><span>Crew: </span>{crew}</p>
-                <Btns title1='Watch Now' btn1func={()=>{setActive(true);}}/>
+                <Btns item={state} title1='Watch Now' btn1func={()=>{setActive(true);}}/>
             </div>
         </div>
         <div className="peoples">

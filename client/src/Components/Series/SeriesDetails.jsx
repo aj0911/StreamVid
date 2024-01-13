@@ -103,7 +103,7 @@ const SeriesDetails = ({active,setActive}) => {
                     <h3>{state.number_of_seasons} Seasons</h3>
                 </div>
                 <p>{seasonData.overview }</p>
-                <Btns title1='Start Watching' btn1func={()=>navigate(`/Series/player/${seasonFiles[0].id}`,{state:{index:0,backdrop_path:state.backdrop_path,video:state.videos.results[0]?.key,seasonFiles,name:state.name,vote_average:state.vote_average,genre:state.genre}})}/>
+                <Btns item={state} title1='Start Watching' btn1func={()=>navigate(`/Series/player/${seasonFiles[0].id}`,{state:{index:0,backdrop_path:state.backdrop_path,video:state.videos.results[0]?.key,seasonFiles,name:state.name,vote_average:state.vote_average,genre:state.genre}})}/>
                 <select value={seasonData.id} onChange={(e)=>handleSelect(e.target.value)}>
                   {
                     state.seasons.map((season,index)=>(

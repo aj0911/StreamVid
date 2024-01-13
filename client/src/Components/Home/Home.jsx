@@ -10,7 +10,8 @@ import Btns from '../../Helper/Btns/Btns'
 import { useNavigate } from 'react-router-dom'
 import ListView from '../../Helper/ListView/ListView';
 import { MdOutlineClose } from 'react-icons/md'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { add } from '../../Reducers/ListsReducer'
 
 
 const Home = ({active,setActive}) => {
@@ -30,7 +31,6 @@ const Home = ({active,setActive}) => {
     const [touchEndX,setTouchEndX] = useState({x:0,y:0});
     const navigate  = useNavigate();
     const auth = useSelector(state=>state.auth);
-
 
     // Functions
     const loadTrendingMovies = ()=>{
@@ -213,6 +213,8 @@ const Home = ({active,setActive}) => {
     const mouseDown = (e)=>{
         setTouchStartX({x:e.clientX,y:e.clientY});
     }
+    
+
     // Rendering
     useEffect(()=>{
         if(auth.isAuth===false){
@@ -313,12 +315,14 @@ const Home = ({active,setActive}) => {
             <div className="personList">
                 {
                     (persons.length>0)?
-                    persons.slice(0,10).map((person,index)=>(
+                    persons.slice(0,10).map((person,index)=>{
+                        if(!person.images.profiles[0]) return null
+                        return(
                         <div onClick={()=>navigate(`/Person/${person.id}`,{state:person})} key={index} className="person">
-                            <img src={`https://image.tmdb.org/t/p/w500/${person.images.profiles[0].file_path}`} alt="" />
+                            <img src={`https://image.tmdb.org/t/p/w500/${person.images.profiles[0]?.file_path}`} alt="" />
                             <h3>{person.name}</h3>
                         </div>
-                    )):''
+                    )}):''
                 }
             </div>
         </div>

@@ -51,6 +51,9 @@
                 font-size: calc(1.05 * 3rem);
                 color: var(--secColor);
             }
+            button.added{
+                
+            }
             button{
                 position: absolute;
                 bottom: 20px;

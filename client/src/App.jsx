@@ -17,6 +17,7 @@ import Authentication from './Components/Authentication/Authentication'
 import { useSelector } from 'react-redux'
 import Subscribe from './Components/Subscription/Subscribe'
 import Payment from './Components/Subscription/Payment'
+import Profile from './Components/Profile/Profile'
 
 const App = () => {
   const [active,setActive] = useState(false);
@@ -44,6 +45,7 @@ const App = () => {
         <Route exact path='/Person/:id' element={<PersonDetails/>}/>
         <Route exact path='/Subscription' element={<Subscribe/>}/>
         <Route exact path='/Payment' element={<Payment/>}/>
+        <Route exact path='/Profile' element={<Profile/>}/>
         <Route exact path='/Series/:id' element={<SeriesDetails active={active} setActive={setActive}/>} />
       </Routes>
       <Footer/>

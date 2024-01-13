@@ -9,6 +9,9 @@
     --secColorLight:#BABFC1;
     --transition: all .4s;
     --hoverColor:#181B31;
+    --secColorWarn:crimson;
+    --secColorGold:#cfb53b;
+    --gradientColor:linear-gradient(45deg,var(--secColor) 70% ,var(--secColorDark));
 }
 
 ::-webkit-scrollbar{
@@ -33,6 +36,31 @@ body{
     text-decoration: none;
 }
 
+
+.no-data{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 50px 5%;
+    img{
+        width: 50%;
+    }
+    h3{
+        color: var(--secColorWarn);
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-transform: capitalize;
+    }
+    p{
+        color: var(--secColorDark);
+        font-size: 1.1rem;
+        font-weight: 400;
+        text-align: center;
+        margin-top: .5rem;
+    }
+}
 /* For Tablets */
 @media screen and (max-width:999px) {
     .App{
@@ -47,6 +75,17 @@ body{
 @media screen and (max-width:599px) {
     .App{
         padding-bottom: calc(40px + 2.1rem);
+    }
+    .no-data{
+        img{
+            width: 80%;
+        }
+        h3{
+            font-size: 2rem;
+        }
+        p{
+            font-size: .9rem;
+        }
     }
 }
 
