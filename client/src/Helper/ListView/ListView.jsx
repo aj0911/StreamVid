@@ -22,11 +22,11 @@ const ListView = ({title,viewMore = true,data,count=10,largeSize=false,type}) =>
     },[lists])
 
   return (
+    data.length>0?
     <div className="ListView">
         <Title title={title} type={type} viewMore={viewMore} data={data}/>
         <div className="list">
             {
-                (data.length>0)?
                 data.slice(0,count).map((item,index)=>{
                     if(item.poster_path===null)return;
                     return(
@@ -35,10 +35,10 @@ const ListView = ({title,viewMore = true,data,count=10,largeSize=false,type}) =>
                         <FaRegPlayCircle onClick={()=>{navigate(`/${(item.seasons)?'Series':'Movies'}/${item.id}`,{state:item})}} className='icon'/>
                         <button onClick={(e)=>handleClick(item)}>Add to My List</button>
                     </div>
-                )}):''
+                )})
             }
         </div>
-    </div>
+    </div>:''
   )
 }
 

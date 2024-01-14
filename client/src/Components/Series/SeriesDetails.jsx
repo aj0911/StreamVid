@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import ReactStars from 'react-stars'
 import { FaEye, FaRegPlayCircle } from 'react-icons/fa'
 import Btns from '../../Helper/Btns/Btns'
@@ -8,16 +8,94 @@ import '../Movies/Movies.css'
 import { toast } from 'react-toastify'
 import api from 'axios'
 import Loader from '../../Helper/Loader/Loader'
-import { convert0Number } from '../../Helper/Helper';
+import { TYPE, convert0Number } from '../../Helper/Helper';
+import ListView from '../../Helper/ListView/ListView'
 
 
 const SeriesDetails = ({active,setActive}) => {
   // States
-    const {state} = useLocation();
-    const [seasonFiles,setSeasonFiles] = useState([]);
-    const [loading,setLoading] = useState(false);
-    const navigate = useNavigate();
-    const [seasonData,setSeasonData] = useState({
+  const {state} = useLocation();
+  const [seasonFiles,setSeasonFiles] = useState([]);
+  const [loading,setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [seasonData,setSeasonData] = useState({
+    poster_path:state.poster_path,
+    vote_average:state.vote_average,
+    name:state.seasons[state.seasons.length-1].name,
+    overview:state.seasons[state.seasons.length-1].overview || state.overview,
+    air_date:state.seasons[state.seasons.length-1].air_date,
+    id:state.seasons[state.seasons.length-1].id,
+    season_number:state.seasons[state.seasons.length-1].season_number
+  });
+  const [recommendation,setRecommendation] = useState('');
+
+  // Functions
+  const handleSelect = (value)=>{
+    state.seasons.forEach(data=>{
+      if(data.id==value){
+        setSeasonData({
+          poster_path:data.poster_path || state.poster_path,
+          vote_average:data.vote_average || state.poster_path,
+          name:data.name || ' ',
+          overview:data.overview || state.overview,
+          air_date:data.air_date || state.first_air_date,
+          id:value,
+          season_number:data.season_number
+        })
+      }
+    });
+  }
+
+  const loadSeasons = ()=>{
+    setLoading(true);
+    setSeasonFiles([]);
+    api.get(`https://api.themoviedb.org/3/tv/${state.id}/season/${seasonData.season_number}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((data)=>{
+        data.data.episodes.forEach(element=>{
+          api.get(`https://api.themoviedb.org/3/tv/${state.id}/season/${seasonData.season_number}/episode/${element.episode_number}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+            setSeasonFiles((prev)=>{
+              return [...prev,res.data];
+            });
+          }).catch((err)=>{
+              toast.warn(err.message)
+          })
+
+        })
+    }).catch((err)=>{
+        toast.warn(err.message)
+    }).finally(()=>{
+        setLoading(false);
+    })
+  }
+
+  const getRecommendation = ()=>{
+    setLoading(true);
+    api.get(`https://api.themoviedb.org/3/tv/${state.id}/recommendations?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`).then((data)=>{
+      data.data.results.forEach((element)=>{
+        api.get(`https://api.themoviedb.org/3/tv/${element.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images,credits`).then((res)=>{
+            setRecommendation((prev)=>{
+                if(res.data.poster_path===null || res.data.backdrop_path === null)return [...prev];
+                return [...prev,res.data];
+            });
+
+        }).catch((err)=>{
+            toast.warn(err.message)
+        })
+    })
+    }).catch((err)=>{
+        toast.warn(err.message)
+    }).finally(()=>{
+        setLoading(false);
+    })
+  }
+  
+  // Rendering
+  useEffect(()=>{
+    loadSeasons();
+    getRecommendation();
+  },[seasonData])
+
+  useEffect(()=>{
+    setSeasonData({
       poster_path:state.poster_path,
       vote_average:state.vote_average,
       name:state.seasons[state.seasons.length-1].name,
@@ -26,49 +104,10 @@ const SeriesDetails = ({active,setActive}) => {
       id:state.seasons[state.seasons.length-1].id,
       season_number:state.seasons[state.seasons.length-1].season_number
     });
+    getRecommendation();
+    document.querySelector('#MovieDetails .banner').scrollIntoView();
+  },[state])
 
-    // Functions
-    const handleSelect = (value)=>{
-      console.log(value);
-      state.seasons.forEach(data=>{
-        if(data.id==value){
-          console.log(data);
-          setSeasonData({
-            poster_path:data.poster_path || state.poster_path,
-            vote_average:data.vote_average || state.poster_path,
-            name:data.name || ' ',
-            overview:data.overview || state.overview,
-            air_date:data.air_date || state.first_air_date,
-            id:value,
-            season_number:data.season_number
-          })
-        }
-      });
-    }
-    const loadSeasons = ()=>{
-      setLoading(true);
-      setSeasonFiles([]);
-      api.get(`https://api.themoviedb.org/3/tv/${state.id}/season/${seasonData.season_number}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((data)=>{
-          data.data.episodes.forEach(element=>{
-            api.get(`https://api.themoviedb.org/3/tv/${state.id}/season/${seasonData.season_number}/episode/${element.episode_number}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
-              setSeasonFiles((prev)=>{
-                return [...prev,res.data];
-              });
-            }).catch((err)=>{
-                toast.warn(err.message)
-            })
-
-          })
-      }).catch((err)=>{
-          toast.warn(err.message)
-      }).finally(()=>{
-          setLoading(false);
-      })
-    }
-    // Rendering
-    useEffect(()=>{
-      loadSeasons();
-    },[seasonData])
   return (
     <div id="MovieDetails" className={`SeriesDetails ${active?'active':''}`}>
         <div className="banner" style={{backgroundImage:`url("https://image.tmdb.org/t/p/original${state.backdrop_path}")`}}>
@@ -176,6 +215,8 @@ const SeriesDetails = ({active,setActive}) => {
                 }
             </div>
         </div>
+        
+        <ListView title={'More Like This'} data={recommendation} type={TYPE.SERIES}/>
     </div>
   )
 }

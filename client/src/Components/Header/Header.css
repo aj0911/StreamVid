@@ -95,41 +95,15 @@ header .left  .link.active::after{
     content: '';
     width: 100%;
 }
-header .right .search{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 5px;
+header .right .icon{
+    font-size: 1.5rem;
+    color: var(--textColor);
+    cursor: pointer;
     transition: var(--transition);
-    border: .1px solid var(--textColor);
-    border-radius: 5px;
-    .icon{
-        color: var(--textColor);
-        font-size: 1.1rem;
-    }
 }
-header .right .search input{
-    padding: 5px;
-    font-size: 1.1rem;
-    border: none;
-    background-color: transparent;
-    color: var(--textColor);
-}
-header .right .search input::placeholder{
-    color: var(--textColor);
-}
-header .right .search:hover{
-    transform: scale(1.05);
-    border-color: var(--secColor);
-    .icon{
-        color: var(--secColor);
-    }
-    input{
-        color: var(--secColor);
-    }
-}
-header .right .search input:focus{
-    outline-width: 0;
+header .right .icon:hover{
+    transform: scale(1.2);
+    color: var(--secColor);
 }
 header .right .profile{
     color: var(--textColor);
@@ -138,6 +112,24 @@ header .right .profile{
     border-radius: 50%;
     padding: 5px;
     transition: var(--transition);
+}
+header .right .profileTitle{
+    background:var(--gradientColor);
+    color: var(--textColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    width: 50px;
+    height: 50px;
+    transition: var(--transition);
+    border: 2px solid var(--gradientColor);
+    font-weight: 700;
+}
+header .right .profileTitle:hover{
+    transform: scale(1.05);
 }
 header .right .profile:hover{
     color: var(--secColor);
@@ -177,17 +169,6 @@ header .right button:hover{
         justify-content: space-between;
         align-items: center;
         z-index: 5;
-    }
-    header .right .search{
-        border:none;
-        position: relative;
-        .icon{
-            font-size: 1.5rem;
-        }
-        input{
-            display: none;
-
-        }
     }
     header .left .links .link{
         display: flex;
@@ -231,8 +212,13 @@ header .right button:hover{
         font-size: 1.5rem;
         padding: 3px;
     }
-    header .right .search
-    .icon {
+    header .right .profileTitle {
+        font-size: .9rem;
+        padding: 5px;
+        width: 30px;
+        height: 30px;
+    }
+    header .right .icon {
         font-size: 1.2rem;
     }
     header .left .logo img {

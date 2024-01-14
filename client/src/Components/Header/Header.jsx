@@ -33,11 +33,14 @@ const Header = () => {
             </div>
         </div>
         <div className="right">
-            <div className="search">
-                <FaSearch className='icon'/>
-                <input type="text" placeholder='Find movies,TV shows, Series,...' />
-            </div>
-            <NavLink to={'/Profile'}><FaUser className='profile'/></NavLink>
+            <FaSearch onClick={()=>navigate('/Search')} className='icon'/>
+            <NavLink to={'/Profile'}>
+                {
+                    auth.user?
+                    <h3 className='profileTitle'>{auth.user?.name.split(' ').map(x=>x[0])}</h3>
+                    :<FaUser className='profile'/>
+                }
+            </NavLink>
             
                 <button onClick={()=>navigate('/Subscription')}>
                 {

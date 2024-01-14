@@ -9,6 +9,8 @@ import { MdOutlineClose } from 'react-icons/md'
 import { toast } from 'react-toastify'
 import api from 'axios'
 import Loader from '../../Helper/Loader/Loader'
+import ListView from '../../Helper/ListView/ListView'
+import { TYPE } from '../../Helper/Helper'
 
 const MovieDetails = ({active,setActive}) => {
     const [cast,setCast] = useState('');
@@ -17,6 +19,7 @@ const MovieDetails = ({active,setActive}) => {
     const [state,setState] = useState('');
     const {id} = useParams();
     const navigate = useNavigate();
+    const [recommendation,setRecommendation] = useState('');
 
     // Functions 
     const getMovie = ()=>{
@@ -41,10 +44,24 @@ const MovieDetails = ({active,setActive}) => {
             setLoading(false);
         })
     }
+    const getRecommendation = ()=>{
+        setLoading(true);
+        api.get(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`).then((res)=>{
+            setRecommendation(res.data.results);
+        }).catch((err)=>{
+            toast.warn(err.message)
+        }).finally(()=>{
+            setLoading(false);
+        })
+    }
     // Rendering
     useEffect(()=>{
+        setCast('');
+        setCrew('');
         getMovie();
-    },[])
+        getRecommendation();
+        document.querySelector('#MovieDetails .banner').scrollIntoView();
+    },[id])
   return (
     loading && !state?<Loader size={100}/>:
     <div id="MovieDetails" className={`${active?'active':''}`}>
@@ -116,6 +133,7 @@ const MovieDetails = ({active,setActive}) => {
                 }
             </div>
         </div>
+        <ListView title={'More Like This'} data={recommendation} type={TYPE.MOVIE}/>
         {
             !active?'':
             <div className={`videoContainer`}>
