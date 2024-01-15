@@ -278,7 +278,6 @@
                 transition: var(--transition);
                 img{
                     width: 100%;
-                    aspect-ratio: .75;
                 }
                 .content{
                     position: absolute;
