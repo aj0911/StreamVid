@@ -11,7 +11,6 @@ const Btns = ({item,title1='Play Now',title2='Watch Later',btn1func = ()=>{}}) =
   const auth = useSelector(state=>state.auth);
   const dispatch= useDispatch();
   const handleClick = ()=>{
-    console.log(auth.user)
     dispatch(add({type:1,user:auth.user,item}));
     toast.success(`Saved to your list successfully`);
   }

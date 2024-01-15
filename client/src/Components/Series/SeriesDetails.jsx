@@ -49,22 +49,24 @@ const SeriesDetails = ({active,setActive}) => {
   const loadSeasons = ()=>{
     setLoading(true);
     setSeasonFiles([]);
-    api.get(`https://api.themoviedb.org/3/tv/${state.id}/season/${seasonData.season_number}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((data)=>{
-        data.data.episodes.forEach(element=>{
-          api.get(`https://api.themoviedb.org/3/tv/${state.id}/season/${seasonData.season_number}/episode/${element.episode_number}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
-            setSeasonFiles((prev)=>{
-              return [...prev,res.data];
-            });
-          }).catch((err)=>{
-              toast.warn(err.message)
+    if(seasonData.season_number){
+      api.get(`https://api.themoviedb.org/3/tv/${state.id}/season/${seasonData?.season_number}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((data)=>{
+          data.data.episodes.forEach(element=>{
+            api.get(`https://api.themoviedb.org/3/tv/${state.id}/season/${seasonData?.season_number}/episode/${element.episode_number}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos,images`).then((res)=>{
+              setSeasonFiles((prev)=>{
+                return [...prev,res.data];
+              });
+            }).catch((err)=>{
+                toast.warn(err.message)
+            })
+  
           })
-
-        })
-    }).catch((err)=>{
-        toast.warn(err.message)
-    }).finally(()=>{
-        setLoading(false);
-    })
+      }).catch((err)=>{
+          toast.warn(err.message)
+      }).finally(()=>{
+          setLoading(false);
+      })
+    }
   }
 
   const getRecommendation = ()=>{

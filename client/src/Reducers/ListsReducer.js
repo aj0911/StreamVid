@@ -66,6 +66,10 @@ export const ListsReducer = createSlice({
                 })
             }
         },
+        empty:(state)=>{
+            state.myList = [];
+            state.watchLater = [];
+        }
     }
 })
 
