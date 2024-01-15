@@ -17,7 +17,7 @@ const Payment = () => {
     // Functions
     const handlePayment = ()=>{
         setLoading(true);
-        api.post('user/update_subscription',{
+        api.post(`${urlPrefix}user/update_subscription`,{
             ...auth.user,
             subscription:state
         }).then((res)=>{

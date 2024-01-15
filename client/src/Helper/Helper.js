@@ -9,7 +9,7 @@ export const convert0Number = (num)=>{
   }
 
 
-export const urlPrefix = `http://127.0.0.1:5000/`;
+export const urlPrefix = `https://streamvid-backend.vercel.app/`;
 
 export const TYPE = {
   MOVIE:'Movies',

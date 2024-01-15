@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Auth.css'
-import { authItems } from '../../Helper/Helper'
+import { authItems, urlPrefix } from '../../Helper/Helper'
 import api from 'axios'
 import Loader from '../../Helper/Loader/Loader'
 import {toast} from 'react-toastify'
@@ -26,7 +26,7 @@ const Authentication = ({setActive}) => {
   const handleSignIn = (e)=>{
     e.preventDefault();
     setLoading(true)
-    api.post(`user/login`,{
+    api.post(`${urlPrefix}user/login`,{
       email:data.email,
       password:data.password
     }).then((res)=>{
@@ -47,7 +47,7 @@ const Authentication = ({setActive}) => {
   const handleSignUp = (e)=>{
     e.preventDefault();
     setLoading(true)
-    api.post(`user/register`,{
+    api.post(`${urlPrefix}user/register`,{
       name:data.name,
       email:data.email,
       password:data.password,
