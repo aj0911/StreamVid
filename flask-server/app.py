@@ -9,6 +9,3 @@ from Users.routes import user_route
 app.register_blueprint(user_route,url_prefix='/user');
 
 
-# Execution
-if __name__ == '__main__':
-    app.run(debug = True);
