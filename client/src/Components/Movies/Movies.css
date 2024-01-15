@@ -275,7 +275,6 @@
                 overflow: hidden;
                 border-radius: 10px;
                 position: relative;
-                z-index: 0.5;
                 transition: var(--transition);
                 img{
                     width: 100%;
