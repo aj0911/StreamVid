@@ -2,14 +2,41 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 2rem;
+    gap: 1rem;
     width: 100%;
     padding: 100px 5% 20px 5%;
     flex-direction: column;
+    .bar{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: .5rem;
+        width: 100%;
+        padding: 10px;
+        background-color: var(--hoverColor);
+        align-self: center;
+        border-radius: 5px;
+        margin-bottom: 2rem;
+        .icon{
+            font-size: 1.3rem;
+            color: var(--secColorDark);
+        }
+        input{
+            width: calc(100% - 1.3rem);
+            font-size: 1.3rem;
+            font-weight: 700;
+            border: none;
+            background-color: transparent;
+            color: var(--textColor);
+        }
+        input:focus{
+            outline-width: 0;
+        }
+    }
     >h3{
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: var(--secColor);
+        font-size: 1.7rem;
+        font-weight: 700;
+        color: var(--textColor);
         text-transform: uppercase;
     }
     .list{
@@ -89,6 +116,37 @@
             opacity: .7;
         }
     }
+    .pagination{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 2rem;
+        h3{
+            font-size: 1.3rem;
+            color: var(--secColor);
+        }
+        button{
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--textColor);
+            background: var(--gradientColor);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform .4s ,box-shadow .4s;
+        }
+        button:hover{
+            transform: scale(1.05);
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+        }
+    }
 }
 
 
@@ -136,8 +194,18 @@
     #Search{
         padding: 70px 5% 20px 5%;
         gap: .5rem;
+        .bar{
+            padding: 5px;
+            .icon{
+                font-size: .9rem;
+            }
+            input{
+                font-size: .9rem;
+            }
+            margin-bottom: 1rem;
+        }
         >h3{
-            font-size: 1.5rem;
+            font-size: 1.1rem;
         }
         .list{
             .item{
@@ -161,6 +229,17 @@
                 }
             }
             
+        }
+        .pagination{
+            margin-top: 1rem;
+            button{
+                font-size: 1.1rem;
+                width: 30px;
+                height: 30px;
+            }
+            h3{
+                font-size: .9rem;
+            }
         }
     }
 }

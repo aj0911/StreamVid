@@ -19,16 +19,16 @@ const SeriesDetails = ({active,setActive}) => {
   const [loading,setLoading] = useState(false);
   const navigate = useNavigate();
   const [seasonData,setSeasonData] = useState({
-    poster_path:state.poster_path,
-    vote_average:state.vote_average,
-    name:state.seasons[state.seasons.length-1].name,
-    overview:state.seasons[state.seasons.length-1].overview || state.overview,
-    air_date:state.seasons[state.seasons.length-1].air_date,
-    id:state.seasons[state.seasons.length-1].id,
-    season_number:state.seasons[state.seasons.length-1].season_number
+    // poster_path:state.poster_path,
+    // vote_average:state.vote_average,
+    // name:state.seasons[state.seasons.length-1].name,
+    // overview:state.seasons[state.seasons.length-1].overview || state.overview,
+    // air_date:state.seasons[state.seasons.length-1].air_date,
+    // id:state.seasons[state.seasons.length-1].id,
+    // season_number:state.seasons[state.seasons.length-1].season_number
   });
   const [recommendation,setRecommendation] = useState('');
-
+  const {id} = useParams();
   // Functions
   const handleSelect = (value)=>{
     state.seasons.forEach(data=>{
@@ -89,12 +89,7 @@ const SeriesDetails = ({active,setActive}) => {
   }
   
   // Rendering
-  useEffect(()=>{
-    loadSeasons();
-    getRecommendation();
-  },[seasonData])
-
-  useEffect(()=>{
+  useLayoutEffect(()=>{
     setSeasonData({
       poster_path:state.poster_path,
       vote_average:state.vote_average,
@@ -106,7 +101,13 @@ const SeriesDetails = ({active,setActive}) => {
     });
     getRecommendation();
     document.querySelector('#MovieDetails .banner').scrollIntoView();
-  },[state])
+  },[id])
+  useLayoutEffect(()=>{
+    loadSeasons();
+    getRecommendation();
+  },[seasonData])
+
+  
 
   return (
     <div id="MovieDetails" className={`SeriesDetails ${active?'active':''}`}>

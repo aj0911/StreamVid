@@ -31,14 +31,16 @@ export const ListsReducer = createSlice({
             }
             else if(action.payload.type === 1){
                 state.watchLater.forEach(x=>{
-                    x.items.forEach(y=>{
-                        if(y?.id===action.payload.item.id){
-                            flag = true;
+                    if(x.user.email===action.payload.user.email){
+                        x.items.forEach(y=>{
+                            if(y.id===action.payload.item.id){
+                                flag = true;
+                            }
+                        })
+                        if(!flag){
+                            x.items.push(action.payload.item);
+                            flag=true;
                         }
-                    })
-                    if(!flag){
-                        x.items.push(action.payload.item);
-                        flag=true;
                     }
                 })
                 if(!flag){

@@ -83,7 +83,7 @@ const Profile = () => {
                     {
                         list?.map((item,index)=>(
                             <div key={index} className="item">
-                                <img src={`https://image.tmdb.org/t/p/original${(window.innerWidth<1000?item.backdrop_path:item.poster_path) || item.profile_path}`} alt="" />
+                                <img src={`https://image.tmdb.org/t/p/w780${(window.innerWidth<1000?item.backdrop_path:item.poster_path) || item.profile_path}`} alt="" />
                                 <div className="content">
                                     <h3 onClick={()=>navigate(`/${(item.seasons)?'Series':'Movies'}/${item.id}`,{state:item})}>{item.name || item.title}</h3>
                                     <FaRegPlayCircle onClick={()=>navigate(`/${(item.seasons)?'Series':'Movies'}/${item.id}`,{state:item})} className='icon'  />

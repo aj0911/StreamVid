@@ -25,7 +25,7 @@ const ViewAll = () => {
             {
                 list.map((item,index)=>(
                     <div onClick={()=>navigate(`/${state.type}/${item.id}`,{state:item})} key={index} className="item">
-                        <img src={`https://image.tmdb.org/t/p/original${(window.innerWidth<1000?item.backdrop_path:item.poster_path) || item.profile_path}`} alt="" />
+                        <img src={`https://image.tmdb.org/t/p/w780${(window.innerWidth<1000?item.backdrop_path:item.poster_path) || item.profile_path}`} alt="" />
                         <div className="content">
                             <h3>{item.name || item.title}</h3>
                             {
