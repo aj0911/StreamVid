@@ -110,7 +110,7 @@ const MovieDetails = ({active,setActive}) => {
                         if(profile_path===null)return;
                         return(
                         <div onClick={()=>navigate(`/Person/${id}`)} className="people" key={index}>
-                            <img src={`https://image.tmdb.org/t/p/w500${profile_path}`} alt="" />
+                            <img style={{width:'100%'}} src={`https://image.tmdb.org/t/p/w500${profile_path}`} alt="" />
                             <div className="content">
                                 <h3>{name}</h3>
                                 <h5>{character}</h5>
@@ -123,7 +123,7 @@ const MovieDetails = ({active,setActive}) => {
                         if(profile_path===null)return;
                         return(
                         <div onClick={()=>navigate(`/Person/${id}`)} className="people" key={index}>
-                            <img src={`https://image.tmdb.org/t/p/w500${profile_path}`} alt="" />
+                            <img style={{width:'100%'}} src={`https://image.tmdb.org/t/p/w500${profile_path}`} alt="" />
                             <div className="content">
                                 <h3>{name}</h3>
                                 <h5>{job}</h5>
