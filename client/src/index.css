@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Advent+Pro:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+@import url(https://fonts.googleapis.com/css?family=Lexend:100,200,300,regular,500,600,700,800,900);
 
 :root{
     --bgColor:#0B1320;
@@ -27,7 +27,7 @@ body{
 }
 
 *{
-    font-family: 'Advent Pro';
+    font-family: 'Lexend';
     user-select: none;
     padding: 0;
     margin: 0;
