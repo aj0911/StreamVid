@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "Streamvid",
+    "slug": "Streamvid",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "androidStatusBar": {
+      "backgroundColor": "#0B1320",
+      "translucent": true
+    },
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.ajsol0911.Streamvid"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "Bold": "./assets/Lexend-Bold.ttf",
+          "ExtraBold": "./assets/Lexend-ExtraBold.ttf",
+          "ExtraLight": "./assets/Lexend-ExtraLight.ttf",
+          "Black": "./assets/Lexend-Black.ttf",
+          "Light": "./assets/Lexend-Light.ttf",
+          "Medium": "./assets/Lexend-Medium.ttf",
+          "Regular": "./assets/Lexend-Regular.ttf",
+          "SemiBold": "./assets/Lexend-SemiBold.ttf",
+          "Thin": "./assets/Lexend-Thin.ttf"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "cfa9e5be-0ab5-4039-a92f-0613dca357b5"
+      }
+    }
+  }
+}
